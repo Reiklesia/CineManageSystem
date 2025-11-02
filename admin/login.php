@@ -1,7 +1,7 @@
 <?php
 session_start();
 require_once '../includes/db_connect.php';
-include '../includes/header.php';
+
 
 // Activer les erreurs en développement (désactiver en production)
 error_reporting(E_ALL);
@@ -32,12 +32,13 @@ if (isset($_POST['login'])) {
     }
 }
 ?>
+<?php include '../includes/header.php'; ?>
 
 <div class="login-container">
     <h2>Connexion Administrateur</h2>
 
     <?php if (isset($error)): ?>
-        <p class="error-message"><?php echo htmlspecialchars($error); ?></p>
+    <p class="error-message"><?php echo htmlspecialchars($error); ?></p>
     <?php endif; ?>
 
     <form method="POST" class="login-form">
