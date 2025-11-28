@@ -1,5 +1,6 @@
 <?php
 require_once __DIR__ . '/../models/FilmModel.php';
+include __DIR__ . '/../includes/header.php';
 
 ?>
 
@@ -8,3 +9,5 @@ require_once __DIR__ . '/../models/FilmModel.php';
 <p><strong>Genre :</strong> <?php echo htmlspecialchars($film['genre']); ?></p>
 <p><strong>Année :</strong> <?php echo $film['annee_sortie']; ?></p>
 <p><strong>Description :</strong> <?php echo htmlspecialchars($film['description']); ?></p>
+
+<?php include __DIR__ . '/../includes/footer.php'; ?>
