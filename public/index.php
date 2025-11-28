@@ -32,6 +32,14 @@ switch ($action) {
     case 'logout':
         Logout();
         break;
+    
+    case 'add_film' :
+        addFilm();
+        break;
+    
+    case 'form_add_film':
+        afficherFormAjout();
+        break;
 
     default:
         http_response_code(404);

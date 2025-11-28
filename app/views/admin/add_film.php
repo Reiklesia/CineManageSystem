@@ -1,26 +1,13 @@
 <?php
-session_start();
-if(!isset($_SESSION['admin'])) header('Location: login.php');
+// session_start();
+// if(!isset($_SESSION['admin'])) header('Location: login.php');
 
-require_once '../includes/db_connect.php';
-
-if(isset($_POST['add'])) {
-    $titre = $_POST['titre'];
-    $realisateur = $_POST['realisateur'];
-    $genre = $_POST['genre'];
-    $annee = intval($_POST['annee_sortie']);
-    $desc = $_POST['description'];
-
-    $conn->query("INSERT INTO films (titre,realisateur,genre,annee_sortie,description) 
-                 VALUES ('$titre','$realisateur','$genre','$annee','$desc')");
-    header('Location: dashboard.php');
-    exit;
-}
-include '../../includes/header.php';
+// require_once '../includes/db_connect.php';
+include __DIR__ . '/../../includes/header.php'
 ?>
-
+<link rel="stylesheet" href="../public/assets/css/style.css">
 <h2>Ajouter un film</h2>
-<form method="POST">
+<form method="POST" action="index.php?action=add_film">
     <label>Titre: <input type="text" name="titre" required></label><br>
     <label>Réalisateur: <input type="text" name="realisateur" required></label><br>
     <label>Genre: <input type="text" name="genre" required></label><br>
@@ -29,4 +16,4 @@ include '../../includes/header.php';
     <button type="submit" name="add">Ajouter</button>
 </form>
 
-<?php include '../includes/footer.php'; ?>
+    <?php include __DIR__ . '/../../includes/footer.php' ?>

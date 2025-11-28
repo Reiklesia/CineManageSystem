@@ -1,7 +1,7 @@
 <?php include __DIR__ . '/../../includes/header.php'; ?>
 
 <h2>Dashboard Admin</h2>
-<a href="index.php?action=add_film">Ajouter un film</a>
+<a href="index.php?action=form_add_film">Ajouter un film</a>
 
 <table border="1">
     <tr>
