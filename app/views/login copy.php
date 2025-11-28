@@ -1,5 +1,5 @@
 <?php
-session_start();
+
 require_once '../includes/db_connect.php';
 
 
@@ -32,13 +32,13 @@ if (isset($_POST['login'])) {
     }
 }
 ?>
-<?php include '../includes/header.php'; ?>
+<?php include '../../includes/header.php'; ?>
 
 <div class="login-container">
     <h2>Connexion Administrateur</h2>
 
     <?php if (isset($error)): ?>
-    <p class="error-message"><?php echo htmlspecialchars($error); ?></p>
+        <p class="error-message"><?php echo htmlspecialchars($error); ?></p>
     <?php endif; ?>
 
     <form method="POST" class="login-form">
@@ -52,4 +52,4 @@ if (isset($_POST['login'])) {
     </form>
 </div>
 
-<?php include '../includes/footer.php'; ?>
+<?php include '../../includes/footer.php'; ?>

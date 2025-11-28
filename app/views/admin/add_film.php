@@ -16,7 +16,7 @@ if(isset($_POST['add'])) {
     header('Location: dashboard.php');
     exit;
 }
-include '../includes/header.php';
+include '../../includes/header.php';
 ?>
 
 <h2>Ajouter un film</h2>
