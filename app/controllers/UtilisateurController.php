@@ -1,23 +1,20 @@
 <?php
-
-session_start();
 require_once __DIR__ . "/../models/utilisateur/UtilisateurModel.php";
 function RouteAuthentification()
 {
 
     if (isset($_SESSION["login"])) {
-
         if ($_SESSION["login"] === 'admin') {
-            header("Location: ../app/views/admin/dashboard.php");
+            header("Location: index.php?action=dashboard");
             exit;
         } else {
-            header("Location: ../../public/index.php");
+            header("Location: index.php?action=list");
             exit;
         }
     }
-    if (isset($_POST["connexion"])) {
-        $login = $_POST["username"] ?? '';
-        $motdepasse = $_POST["password"] ?? '';
+    if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["connexion"])) {
+        $login = trim($_POST['username']) ?? '';
+        $motdepasse = trim($_POST['password']) ?? '';
 
         $resultat = Authentification($login, $motdepasse);
 
@@ -25,10 +22,10 @@ function RouteAuthentification()
             $_SESSION["login"] = $login;
 
             if ($resultat['nom_utilisateur'] === 'admin') {
-                header("Location: ../views/admin/dashboard.php");
+                header("Location: index.php?action=dashboard");
                 exit;
             } else {
-                header("Location: ../../public/index.php");
+                header("Location: index.php?action=list");
                 exit;
             }
         } else {
@@ -40,5 +37,22 @@ function RouteAuthentification()
         include __DIR__ . '/../views/login.php';
     }
 }
+
+function Logout()
+{
+
+    if (session_status() === PHP_SESSION_NONE) {
+        session_start();
+    }
+
+
+    $_SESSION = [];
+    session_destroy();
+
+
+    header("Location: index.php?action=list");
+    exit;
+}
+
 
 ?>

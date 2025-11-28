@@ -16,6 +16,7 @@ function getAllFilms()
     return $result;
 }
 
+
 function getById($id)
 {
     // Validation des données : à venir
