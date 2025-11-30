@@ -30,8 +30,10 @@ CREATE TABLE IF NOT EXISTS films (
     realisateur VARCHAR(100),
     genre VARCHAR(50),
     annee_sortie INT,
-    description TEXT
+    description TEXT,
+    statut ENUM('actif', 'inactif') NOT NULL DEFAULT 'actif'
 );
+
 
 -- Insérer quelques films de démonstration
 INSERT INTO films (titre, realisateur, genre, annee_sortie, description)

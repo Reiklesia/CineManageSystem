@@ -6,7 +6,6 @@ require_once __DIR__ . "/../includes/db_connect.php";
 
 function getAllFilms()
 {
-    // Validation des données : à venir
     global $conn;
     $req = "SELECT * From films ORDER BY titre ASC";
     $result = $conn->query($req);
@@ -21,7 +20,6 @@ function getAllFilms()
 
 function getById($id)
 {
-    // Validation des données : à venir
     global $conn;
     $stmt = $conn->prepare("SELECT * FROM films WHERE id = ?");
     $stmt->bind_param("i", $id);
@@ -37,11 +35,62 @@ function getById($id)
     return $result->fetch_assoc();
 }
 
+function countFilms()
+{
+    global $conn;
+    $sql = "SELECT COUNT(*) AS total FROM films";
+    $result = $conn->query($sql);
+
+    if (!$result) {
+        return 0;
+    }
+
+    $row = $result->fetch_assoc();
+    return (int) ($row['total'] ?? 0);
+}
+
+function getFilmsPagines(int $limit, int $offset)
+{
+    global $conn;
+    $stmt = $conn->prepare(
+        "SELECT * FROM films ORDER BY titre ASC LIMIT ? OFFSET ?"
+    );
+    $stmt->bind_param("ii", $limit, $offset);
+    $stmt->execute();
+    return $stmt->get_result();
+}
+
 function ajoutFilm($titre,$realisateur,$genre,$annee,$description){
     global $conn;
     $result = $conn->query("INSERT INTO films (titre,realisateur,genre,annee_sortie,description) 
                  VALUES ('$titre','$realisateur','$genre','$annee','$description')");
     return $result;
+}
+
+function setFilmActiveStatus($id, $status)
+{
+    global $conn;
+
+    $stmt = $conn->prepare("UPDATE films SET statut = ? WHERE id = ?");
+    $stmt->bind_param("si", $status, $id);
+
+    return $stmt->execute();
+}
+
+function modifierFilm($id, $titre, $realisateur, $genre, $annee, $description)
+{
+	global $conn;
+	$stmt = $conn->prepare("UPDATE films SET titre = ?, realisateur = ?, genre = ?, annee_sortie = ?, description = ? WHERE id = ?");
+	$stmt->bind_param("sssisi", $titre, $realisateur, $genre, $annee, $description, $id);
+	return $stmt->execute();
+}
+
+function supprimerFilm($id)
+{
+	global $conn;
+	$stmt = $conn->prepare("DELETE FROM films WHERE id = ?");
+	$stmt->bind_param("i", $id);
+	return $stmt->execute();
 }
 
 ?>

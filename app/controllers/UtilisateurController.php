@@ -13,8 +13,8 @@ function RouteAuthentification()
         }
     }
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["connexion"])) {
-        $login = trim($_POST['username']) ?? '';
-        $motdepasse = trim($_POST['password']) ?? '';
+		$login      = trim($_POST['username'] ?? '');
+		$motdepasse = trim($_POST['password'] ?? '');
 
         $resultat = Authentification($login, $motdepasse);
 

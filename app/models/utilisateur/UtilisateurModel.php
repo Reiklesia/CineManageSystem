@@ -1,4 +1,5 @@
 <?php
+require_once __DIR__ . '/../../includes/db_connect.php';
 
 function Authentification($nomUtilisateur, $motDePasse)
 {
@@ -17,6 +18,5 @@ function Authentification($nomUtilisateur, $motDePasse)
 
     return $result->fetch_assoc();
 }
-
 
 ?>
