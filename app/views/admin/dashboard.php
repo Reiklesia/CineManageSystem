@@ -1,4 +1,5 @@
 <?php include __DIR__ . '/../../includes/header.php'; ?>
+<link rel="stylesheet" href="../public/assets/css/style.css">
 
 <h2>Dashboard Admin</h2>
 <a href="index.php?action=form_add_film">Ajouter un film</a>

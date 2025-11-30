@@ -20,6 +20,10 @@ function RouteAuthentification()
 
         if ($resultat) {
             $_SESSION["login"] = $login;
+            $_SESSION['flash'] = [
+                'type' => 'success',
+                'message' => 'Connexion réussie.'
+            ];
 
             $_SESSION['flash'] = [
                 'type' => 'success',
@@ -36,12 +40,10 @@ function RouteAuthentification()
                 exit;
             }
         } else {
-
             $_SESSION['flash'] = [
                 'type' => 'error',
                 'message' => 'Identifiants invalides.'
             ];
-
             include __DIR__ . '/../views/login.php';
 
         }
