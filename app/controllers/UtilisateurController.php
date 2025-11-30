@@ -21,16 +21,29 @@ function RouteAuthentification()
         if ($resultat) {
             $_SESSION["login"] = $login;
 
+            $_SESSION['flash'] = [
+                'type' => 'success',
+                'message' => 'Connexion réussie, bienvenue !'
+            ];
+
+
             if ($resultat['nom_utilisateur'] === 'admin') {
                 header("Location: index.php?action=dashboard");
+                $_SESSION['message'] = "Connexion réussis!";
                 exit;
             } else {
                 header("Location: index.php?action=list");
                 exit;
             }
         } else {
-            $error = "Identifiants invalides.";
+
+            $_SESSION['flash'] = [
+                'type' => 'error',
+                'message' => 'Identifiants invalides.'
+            ];
+
             include __DIR__ . '/../views/login.php';
+
         }
 
     } else {
