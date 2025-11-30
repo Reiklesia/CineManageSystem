@@ -35,6 +35,7 @@ function addFilm()
 
       $result = ajoutFilm($titre, $realisateur, $genre, $annee, $description);
       if ($result) {
+         $_SESSION['success_message'] = "Film ajouté avec succès.";
          header('Location: index.php?action=dashboard');
          exit;
       } else {
