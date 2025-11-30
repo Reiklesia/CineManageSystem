@@ -1,7 +1,6 @@
 <?php
-
-require_once __DIR__ . "/../models/utilisateur/UtilisateurModel.php";
 require_once __DIR__ . '/../models/FilmModel.php';
+
 function DashboardAdmin()
 {
 
