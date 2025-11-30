@@ -41,12 +41,18 @@ switch ($action) {
         afficherFormAjout();
         break;
 
+	case 'edit_film':
+        editFilm();
+        break;
+
+	case 'form_edit_film':
+		afficherFormEdit();
+		break;
+
     default:
         http_response_code(404);
         echo "<p>Page introuvable.</p>";
         break;
 }
-
-
 
 ?>

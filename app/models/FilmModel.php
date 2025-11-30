@@ -44,4 +44,12 @@ function ajoutFilm($titre,$realisateur,$genre,$annee,$description){
     return $result;
 }
 
+function updateFilm($id, $titre, $realisateur, $genre, $annee, $description)
+{
+	global $conn;
+	$stmt = $conn->prepare("UPDATE films SET titre = ?, realisateur = ?, genre = ?, annee_sortie = ?, description = ? WHERE id = ?");
+	$stmt->bind_param("sssisi", $titre, $realisateur, $genre, $annee, $description, $id);
+	return $stmt->execute();
+}
+
 ?>
