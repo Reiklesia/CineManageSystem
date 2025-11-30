@@ -1,6 +1,8 @@
 <?php include __DIR__ . '/../../includes/header.php'; ?>
 
 <h2>Tableau de bord</h2>
+
+<h3>Gestion des films</h3>
 <a href="index.php?action=form_add_film">Ajouter un film</a>
 
 <table border="1">
@@ -39,7 +41,7 @@
         </th>
         <th>Supprimer</th>
     </tr>
-    <?php while ($film = $result->fetch_assoc()): ?>
+    <?php while ($film = $film_result->fetch_assoc()): ?>
         <tr>
             <td><?= (int) $film['id']; ?></td>
             <td><?= htmlspecialchars($film['titre']); ?></td>
@@ -85,6 +87,61 @@
         <?php endif; ?>
     </div>
 <?php endif; ?>
+
+<h3>Gestion des utilisateurs</h3>
+
+<a href="index.php?action=form_add_user">Ajouter un utilisateur</a>
+
+<table border="1">
+    <tr>
+        <th>
+            <a href="index.php?action=dashboard&user_sort=id&user_dir=<?= ($user_sort === 'id' && $user_dir === 'asc') ? 'desc' : 'asc'; ?>">
+                ID <?= $user_sort === 'id' ? ($user_dir === 'asc' ? '↑' : '↓') : '' ?>
+            </a>
+        </th>
+        <th>
+            <a href="index.php?action=dashboard&user_sort=nom_utilisateur&user_dir=<?= ($user_sort === 'nom_utilisateur' && $user_dir === 'asc') ? 'desc' : 'asc'; ?>">
+                Nom d'utilisateur <?= $user_sort === 'nom_utilisateur' ? ($user_dir === 'asc' ? '↑' : '↓') : '' ?>
+            </a>
+        </th>
+        <th>Éditer</th>
+        <th>
+            <a href="index.php?action=dashboard&user_sort=statut&user_dir=<?= ($user_sort === 'statut' && $user_dir === 'asc') ? 'desc' : 'asc'; ?>">
+                Statut <?= $user_sort === 'statut' ? ($user_dir === 'asc' ? '↑' : '↓') : '' ?>
+            </a>
+        </th>
+        <th>Supprimer</th>
+    </tr>
+    <?php while ($utilisateur = $utilisateurs_result->fetch_assoc()): ?>
+        <tr>
+            <td><?= (int) $utilisateur['id']; ?></td>
+            <td><?= htmlspecialchars($utilisateur['nom_utilisateur']); ?></td>
+
+            <td>
+                <a href="index.php?action=form_edit_user&id=<?= (int) $utilisateur['id']; ?>">
+                    Éditer
+                </a>
+            </td>
+
+            <td>
+                <?php if (($utilisateur['statut'] ?? 'actif') === 'actif'): ?>
+                    Actif
+                    | <a href="index.php?action=deactivate_user&id=<?= (int)$utilisateur['id']; ?>">Désactiver</a>
+                <?php else: ?>
+                    Inactif
+                    | <a href="index.php?action=activate_user&id=<?= (int)$utilisateur['id']; ?>">Activer</a>
+                <?php endif; ?>
+            </td>
+
+            <td>
+                <a href="index.php?action=delete_user&id=<?= (int) $utilisateur['id']; ?>"
+                   onclick="return confirm('Êtes-vous sûr de vouloir supprimer cet utilisateur ?')">
+                    Supprimer
+                </a>
+            </td>
+        </tr>
+    <?php endwhile; ?>
+</table>
 
 <a href="index.php?action=logout">Déconnexion</a>
 

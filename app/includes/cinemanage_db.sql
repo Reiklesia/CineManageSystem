@@ -34,6 +34,17 @@ CREATE TABLE IF NOT EXISTS films (
     statut ENUM('actif', 'inactif') NOT NULL DEFAULT 'actif'
 );
 
+CREATE TABLE IF NOT EXISTS utilisateurs (
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	nom_utilisateur VARCHAR(50) NOT NULL UNIQUE,
+	mot_de_passe VARCHAR(255) NOT NULL,
+	statut ENUM('actif', 'inactif') NOT NULL DEFAULT 'actif'
+);
+
+INSERT INTO utilisateurs (nom_utilisateur, mot_de_passe, statut)
+VALUES ('user1', 'password1', 'actif'),
+	   ('user2', 'password2', 'actif');
+
 
 -- Insérer quelques films de démonstration
 INSERT INTO films (titre, realisateur, genre, annee_sortie, description)

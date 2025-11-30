@@ -4,7 +4,7 @@ use LDAP\Result;
 
 require_once __DIR__ . "/../includes/db_connect.php";
 
-function getById($id)
+function getFilmById($id)
 {
     global $conn;
     $stmt = $conn->prepare("SELECT * FROM films WHERE id = ?");
@@ -95,14 +95,23 @@ function getTousLesFilmsPagines(int $parPage, int $offset, string $sort, string 
 function ajoutFilm($titre, $realisateur, $genre, $annee, $description)
 {
     global $conn;
-    $result = $conn->query("
+    $sql = "
         INSERT INTO films (titre, realisateur, genre, annee_sortie, description)
-        VALUES ('$titre', '$realisateur', '$genre', '$annee', '$description')
-    ");
-    return $result;
+        VALUES (?, ?, ?, ?, ?)
+    ";
+
+    $stmt = $conn->prepare($sql);
+    if (!$stmt) {
+        return false;
+    }
+
+    $stmt->bind_param("sssis", $titre, $realisateur, $genre, $annee, $description);
+
+    return $stmt->execute();
 }
 
-function setFilmActiveStatus($id, $status)
+
+function setFilmStatus($id, $status)
 {
     global $conn;
 

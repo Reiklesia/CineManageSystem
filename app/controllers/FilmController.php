@@ -121,7 +121,7 @@ function FilmById($id)
         return;
     }
 
-    $film = getById($id);
+    $film = getFilmById($id);
 
     if ($film) {
         include __DIR__ . '/../views/film.php';
@@ -222,7 +222,7 @@ function activateFilm()
         return;
     }
 
-    $result = setFilmActiveStatus($id, 'actif');
+    $result = setFilmStatus($id, 'actif');
 
     if ($result) {
         $_SESSION['flash'] = [
@@ -254,7 +254,7 @@ function deactivateFilm()
         return;
     }
 
-    $result = setFilmActiveStatus($id, 'inactif');
+    $result = setFilmStatus($id, 'inactif');
 
     if ($result) {
         $_SESSION['flash'] = [
@@ -388,7 +388,7 @@ function deleteFilm()
     exit;
 }
 
-function afficherFormAjout()
+function afficherFormAjoutFilm()
 {
     if (!isset($_SESSION['login']) || $_SESSION['login'] !== 'admin') {
         header("Location: index.php?action=connexion");
@@ -398,7 +398,7 @@ function afficherFormAjout()
     include __DIR__ . '/../views/admin/add_film.php';
 }
 
-function afficherFormEdit()
+function afficherFormEditFilm()
 {
     if (!isset($_SESSION['login']) || $_SESSION['login'] !== 'admin') {
         header("Location: index.php?action=connexion");
@@ -412,7 +412,7 @@ function afficherFormEdit()
 
     $id = (int) $_GET['id'];
 
-    $film = getById($id);
+    $film = getFilmById($id);
 
     if (!$film) {
         echo "<p>Film introuvable.</p>";
@@ -421,8 +421,3 @@ function afficherFormEdit()
 
     include __DIR__ . '/../views/admin/edit_film.php';
 }
-
-// Controler
-// Méthode de réception GET ou POST
-// appeler les fonctions du modèle
-// Choisis la vue a afficher

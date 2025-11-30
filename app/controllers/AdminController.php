@@ -2,6 +2,8 @@
 
 require_once __DIR__ . '/../models/FilmModel.php';
 require_once __DIR__ . '/FilmController.php';
+require_once __DIR__ . '/../models/utilisateur/UtilisateurModel.php';
+require_once __DIR__ . '/UtilisateurController.php';
 
 function DashboardAdmin()
 {
@@ -10,13 +12,19 @@ function DashboardAdmin()
         exit;
     }
 
-    $data = listeFilmsComplete();
+    $films_data = listeFilmsComplete();
+    $film_result  = $films_data['result'];
+    $pageCourante = $films_data['pageCourante'];
+    $pagesTotales = $films_data['pagesTotales'];
+    $sort         = $films_data['sort'];
+    $dir          = $films_data['dir'];
 
-    $result       = $data['result'];
-    $pageCourante = $data['pageCourante'];
-    $pagesTotales = $data['pagesTotales'];
-    $sort         = $data['sort'];
-    $dir          = $data['dir'];
+    $users_data          = listeUtilisateursComplete();
+    $utilisateurs_result = $users_data['result'];
+    $userPageCourante    = $users_data['pageCouranteUsers'];
+    $userPagesTotales    = $users_data['pagesTotalesUsers'];
+    $user_sort           = $users_data['user_sort'];
+    $user_dir            = $users_data['user_dir'];
 
     include __DIR__ . '/../views/admin/dashboard.php';
 }

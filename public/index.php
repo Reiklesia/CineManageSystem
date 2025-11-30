@@ -38,7 +38,7 @@ switch ($action) {
         break;
     
     case 'form_add_film':
-        afficherFormAjout();
+        afficherFormAjoutFilm();
         break;
 
 	case 'edit_film':
@@ -46,7 +46,11 @@ switch ($action) {
         break;
 
 	case 'form_edit_film':
-		afficherFormEdit();
+		afficherFormEditFilm();
+		break;
+
+	case 'activate_film':
+		activateFilm();
 		break;
 
 	case 'deactivate_film':
@@ -55,6 +59,34 @@ switch ($action) {
 
 	case 'delete_film':
 		deleteFilm();
+		break;
+
+	case 'add_user':
+		addUser();
+		break;
+
+	case 'form_add_user':
+		afficherFormAjoutUser();
+		break;
+
+	case 'edit_user':
+		editUser();
+		break;
+
+	case 'form_edit_user':
+		afficherFormEditUser();
+		break;
+
+	case 'activate_user':
+		activateUser();
+		break;
+
+	case 'deactivate_user':
+		deactivateUser();
+		break;
+
+	case 'delete_user':
+		deleteUser();
 		break;
 
     default:
