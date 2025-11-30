@@ -12,7 +12,7 @@ $action = $_GET['action'] ?? 'list';
 
 switch ($action) {
     case 'list':
-        ListeFilmsComplete();
+        afficherListeFilmsActifs();
         break;
 
     case 'film':
@@ -41,20 +41,16 @@ switch ($action) {
         afficherFormAjout();
         break;
 
-	case 'deactivate_film':
-		deactivateFilm();
-		break;
-
-	case 'activate_film':
-		activateFilm();
-		break;
-
 	case 'edit_film':
         editFilm();
         break;
 
 	case 'form_edit_film':
 		afficherFormEdit();
+		break;
+
+	case 'deactivate_film':
+		deactivateFilm();
 		break;
 
 	case 'delete_film':

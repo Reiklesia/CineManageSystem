@@ -4,20 +4,6 @@ use LDAP\Result;
 
 require_once __DIR__ . "/../includes/db_connect.php";
 
-function getAllFilms()
-{
-    global $conn;
-    $req = "SELECT * From films ORDER BY titre ASC";
-    $result = $conn->query($req);
-
-    if (!$result) {
-        die("Erreur de récupération des films:" . $conn->error);
-    }
-
-    return $result;
-}
-
-
 function getById($id)
 {
     global $conn;
@@ -35,35 +21,84 @@ function getById($id)
     return $result->fetch_assoc();
 }
 
-function countFilms()
+function countAllFilms()
 {
     global $conn;
     $sql = "SELECT COUNT(*) AS total FROM films";
     $result = $conn->query($sql);
-
-    if (!$result) {
-        return 0;
-    }
-
+    if (!$result) return 0;
     $row = $result->fetch_assoc();
     return (int) ($row['total'] ?? 0);
 }
 
-function getFilmsPagines(int $limit, int $offset)
+function countFilmsActifs()
 {
     global $conn;
-    $stmt = $conn->prepare(
-        "SELECT * FROM films ORDER BY titre ASC LIMIT ? OFFSET ?"
-    );
-    $stmt->bind_param("ii", $limit, $offset);
+    $sql = "SELECT COUNT(*) AS total FROM films WHERE statut = 'actif'";
+    $result = $conn->query($sql);
+    if (!$result) return 0;
+    $row = $result->fetch_assoc();
+    return (int) ($row['total'] ?? 0);
+}
+
+function getFilmsActifsPagines(int $parPage, int $offset, string $sort, string $dir)
+{
+    global $conn;
+
+    $allowedSorts = ['titre', 'realisateur', 'genre', 'annee_sortie'];
+    if (!in_array($sort, $allowedSorts, true)) {
+        $sort = 'titre';
+    }
+
+    $dirSql = strtolower($dir) === 'desc' ? 'DESC' : 'ASC';
+
+    $sql = "
+        SELECT id, titre, realisateur, genre, annee_sortie, description, statut
+        FROM films
+        WHERE statut = 'actif'
+        ORDER BY $sort $dirSql
+        LIMIT ? OFFSET ?
+    ";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('ii', $parPage, $offset);
     $stmt->execute();
+
     return $stmt->get_result();
 }
 
-function ajoutFilm($titre,$realisateur,$genre,$annee,$description){
+function getTousLesFilmsPagines(int $parPage, int $offset, string $sort, string $dir)
+{
     global $conn;
-    $result = $conn->query("INSERT INTO films (titre,realisateur,genre,annee_sortie,description) 
-                 VALUES ('$titre','$realisateur','$genre','$annee','$description')");
+
+    $allowedSorts = ['id', 'titre', 'realisateur', 'genre', 'annee_sortie', 'statut'];
+    if (!in_array($sort, $allowedSorts, true)) {
+        $sort = 'id';
+    }
+
+    $dirSql = strtolower($dir) === 'desc' ? 'DESC' : 'ASC';
+
+    $sql = "
+        SELECT id, titre, realisateur, genre, annee_sortie, description, statut
+        FROM films
+        ORDER BY $sort $dirSql
+        LIMIT ? OFFSET ?
+    ";
+
+    $stmt = $conn->prepare($sql);
+    $stmt->bind_param('ii', $parPage, $offset);
+    $stmt->execute();
+
+    return $stmt->get_result();
+}
+
+function ajoutFilm($titre, $realisateur, $genre, $annee, $description)
+{
+    global $conn;
+    $result = $conn->query("
+        INSERT INTO films (titre, realisateur, genre, annee_sortie, description)
+        VALUES ('$titre', '$realisateur', '$genre', '$annee', '$description')
+    ");
     return $result;
 }
 

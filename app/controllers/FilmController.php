@@ -1,10 +1,8 @@
 <?php
 
-use LDAP\Result;
-
 require_once __DIR__ . '/../models/FilmModel.php';
 
-function getListeFilmsAvecPagination()
+function listeFilmsActifs()
 {
     $parPage = 10;
 
@@ -14,7 +12,7 @@ function getListeFilmsAvecPagination()
         $pageCourante = 1;
     }
 
-    $totalFilms   = countFilms();
+    $totalFilms   = countFilmsActifs();
     $pagesTotales = max(1, (int) ceil($totalFilms / $parPage));
 
     if ($pageCourante > $pagesTotales) {
@@ -23,24 +21,89 @@ function getListeFilmsAvecPagination()
 
     $offset = ($pageCourante - 1) * $parPage;
 
-    $result = getFilmsPagines($parPage, $offset);
+    $allowedSorts = ['titre', 'realisateur', 'genre', 'annee_sortie'];
+    $sort = $_GET['sort'] ?? 'titre';
+    if (!in_array($sort, $allowedSorts, true)) {
+        $sort = 'titre';
+    }
+
+    $dir = $_GET['dir'] ?? 'asc';
+    $dir = strtolower($dir) === 'desc' ? 'desc' : 'asc';
+
+    $result = getFilmsActifsPagines($parPage, $offset, $sort, $dir);
 
     return [
         'result'       => $result,
         'pageCourante' => $pageCourante,
         'pagesTotales' => $pagesTotales,
+        'sort'         => $sort,
+        'dir'          => $dir,
     ];
 }
 
-function ListeFilmsComplete()
+function afficherListeFilmsActifs()
 {
-    $data = getListeFilmsAvecPagination();
+    $data = listeFilmsActifs();
 
     $result       = $data['result'];
     $pageCourante = $data['pageCourante'];
     $pagesTotales = $data['pagesTotales'];
+    $sort         = $data['sort'];
+    $dir          = $data['dir'];
 
     include __DIR__ . '/../views/filmList.php';
+}
+
+function listeFilmsComplete()
+{
+    $parPage = 10;
+
+    if (isset($_GET['page']) && ctype_digit($_GET['page']) && (int)$_GET['page'] > 0) {
+        $pageCourante = (int) $_GET['page'];
+    } else {
+        $pageCourante = 1;
+    }
+
+    $totalFilms   = countAllFilms();
+    $pagesTotales = max(1, (int) ceil($totalFilms / $parPage));
+
+    if ($pageCourante > $pagesTotales) {
+        $pageCourante = $pagesTotales;
+    }
+
+    $offset = ($pageCourante - 1) * $parPage;
+
+    $allowedSorts = ['id', 'titre', 'realisateur', 'genre', 'annee_sortie', 'statut'];
+    $sort = $_GET['sort'] ?? 'id';
+    if (!in_array($sort, $allowedSorts, true)) {
+        $sort = 'id';
+    }
+
+    $dir = $_GET['dir'] ?? 'asc';
+    $dir = strtolower($dir) === 'desc' ? 'desc' : 'asc';
+
+    $result = getTousLesFilmsPagines($parPage, $offset, $sort, $dir);
+
+    return [
+        'result'       => $result,
+        'pageCourante' => $pageCourante,
+        'pagesTotales' => $pagesTotales,
+        'sort'         => $sort,
+        'dir'          => $dir,
+    ];
+}
+
+function afficherListeFilmsComplete()
+{
+    $data = listeFilmsComplete();
+
+    $result       = $data['result'];
+    $pageCourante = $data['pageCourante'];
+    $pagesTotales = $data['pagesTotales'];
+    $sort         = $data['sort'];
+    $dir          = $data['dir'];
+
+    include __DIR__ . '/../views/admin/dashboard.php';
 }
 
 function FilmById($id)
