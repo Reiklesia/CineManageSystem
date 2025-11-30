@@ -21,6 +21,5 @@
         <div class="alert <?php echo $_SESSION['flash']['type']; ?>">
             <?php echo htmlspecialchars($_SESSION['flash']['message']); ?>
         </div>
-        <?php unset($_SESSION['flash']); // suppression après affichage ?>
         <?php unset($_SESSION['flash']); ?>
     <?php endif; ?>
