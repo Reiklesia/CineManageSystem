@@ -35,6 +35,31 @@ function getById($id)
     return $result->fetch_assoc();
 }
 
+function countFilms()
+{
+    global $conn;
+    $sql = "SELECT COUNT(*) AS total FROM films";
+    $result = $conn->query($sql);
+
+    if (!$result) {
+        return 0;
+    }
+
+    $row = $result->fetch_assoc();
+    return (int) ($row['total'] ?? 0);
+}
+
+function getFilmsPagines(int $limit, int $offset)
+{
+    global $conn;
+    $stmt = $conn->prepare(
+        "SELECT * FROM films ORDER BY titre ASC LIMIT ? OFFSET ?"
+    );
+    $stmt->bind_param("ii", $limit, $offset);
+    $stmt->execute();
+    return $stmt->get_result();
+}
+
 function ajoutFilm($titre,$realisateur,$genre,$annee,$description){
     global $conn;
     $result = $conn->query("INSERT INTO films (titre,realisateur,genre,annee_sortie,description) 

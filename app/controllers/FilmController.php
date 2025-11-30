@@ -4,19 +4,41 @@ use LDAP\Result;
 
 require_once __DIR__ . '/../models/FilmModel.php';
 
+function getListeFilmsAvecPagination()
+{
+    $parPage = 10;
+
+    if (isset($_GET['page']) && ctype_digit($_GET['page']) && (int)$_GET['page'] > 0) {
+        $pageCourante = (int) $_GET['page'];
+    } else {
+        $pageCourante = 1;
+    }
+
+    $totalFilms   = countFilms();
+    $pagesTotales = max(1, (int) ceil($totalFilms / $parPage));
+
+    if ($pageCourante > $pagesTotales) {
+        $pageCourante = $pagesTotales;
+    }
+
+    $offset = ($pageCourante - 1) * $parPage;
+
+    $result = getFilmsPagines($parPage, $offset);
+
+    return [
+        'result'       => $result,
+        'pageCourante' => $pageCourante,
+        'pagesTotales' => $pagesTotales,
+    ];
+}
+
 function ListeFilmsComplete()
 {
-    $result = getAllFilms();
+    $data = getListeFilmsAvecPagination();
 
-    if (!$result) {
-        echo "<p>Erreur lors de la récupération des films.</p>";
-        return;
-    }
-
-    if ($result->num_rows === 0) {
-        echo "<p>Aucun film trouvé.</p>";
-        return;
-    }
+    $result       = $data['result'];
+    $pageCourante = $data['pageCourante'];
+    $pagesTotales = $data['pagesTotales'];
 
     include __DIR__ . '/../views/filmList.php';
 }
