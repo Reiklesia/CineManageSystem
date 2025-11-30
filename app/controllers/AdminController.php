@@ -12,7 +12,7 @@ function DashboardAdmin()
         exit;
     }
 
-    $films_data = listeFilmsComplete();
+    $films_data   = listeFilmsComplete();
     $film_result  = $films_data['result'];
     $pageCourante = $films_data['pageCourante'];
     $pagesTotales = $films_data['pagesTotales'];
