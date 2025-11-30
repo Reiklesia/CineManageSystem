@@ -10,8 +10,8 @@
         <input type="text" id="username" name="username" required>
 
         <label for="password">Mot de passe :</label>
-        <input type="password" id="password" name="password" required <button type="submit" name="connexion">Se
-        connecter</button>
+        <input type="password" id="password" name="password" required>
+        <button type="submit" name="connexion">Se connecter</button>
     </form>
 </div>
 
