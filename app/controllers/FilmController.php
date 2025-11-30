@@ -35,16 +35,23 @@ function addFilm()
 
       $result = ajoutFilm($titre, $realisateur, $genre, $annee, $description);
       if ($result) {
-         $_SESSION['success_message'] = "Film ajouté avec succès.";
+         $_SESSION['flash'] = [
+            'type' => 'success',
+            'message' => 'Film ajouté avec succès.'
+         ];
          header('Location: index.php?action=dashboard');
          exit;
       } else {
-         echo "<p>Impossible d'ajouter le film.</p>";
+         $_SESSION['flash'] = [
+            'type' => 'error',
+            'message' => "Impossible d'ajouter le film."
+         ];
       }
    }
 }
 
-function afficherFormAjout(){
+function afficherFormAjout()
+{
    include __DIR__ . '/../views/admin/add_film.php';
 }
 

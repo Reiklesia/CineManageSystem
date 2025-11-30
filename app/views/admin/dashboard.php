@@ -4,13 +4,6 @@
 <h2>Dashboard Admin</h2>
 <a href="index.php?action=form_add_film">Ajouter un film</a>
 
-<?php if (!empty($_SESSION['success_message'])): ?>
-    <div class="alert alert-success">
-        <?= htmlspecialchars($_SESSION['success_message']); ?>
-    </div>
-    <?php unset($_SESSION['success_message']);?>
-<?php endif; ?>
-
 <table border="1">
     <tr>
         <th>ID</th>
