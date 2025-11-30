@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__ . "/../models/utilisateur/UtilisateurModel.php";
-
 function RouteAuthentification()
 {
 
@@ -113,7 +112,7 @@ function addUser()
 
     $nomUtilisateur = trim($_POST['nom_utilisateur'] ?? '');
     $motDePasse     = trim($_POST['mot_de_passe'] ?? '');
-    $statut         = 'actif';
+    $statut         = $_POST['statut'] ?? 'actif';
 
     $errors = [];
 
@@ -121,6 +120,8 @@ function addUser()
         $errors[] = "Le nom d'utilisateur est obligatoire.";
     } elseif (mb_strlen($nomUtilisateur) > 50) {
         $errors[] = "Le nom d'utilisateur ne doit pas dépasser 50 caractères.";
+    } elseif (usernameExists($nomUtilisateur)) {
+        $errors[] = "Ce nom d'utilisateur existe déjà.";
     }
 
     if ($motDePasse === '') {
