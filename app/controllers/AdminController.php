@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../models/FilmModel.php';
+require_once __DIR__ . '/FilmController.php';
 
 function DashboardAdmin()
 {
@@ -9,12 +10,13 @@ function DashboardAdmin()
         exit;
     }
 
-    $data = getListeFilmsAvecPagination();
+    $data = listeFilmsComplete();
 
     $result       = $data['result'];
     $pageCourante = $data['pageCourante'];
     $pagesTotales = $data['pagesTotales'];
+    $sort         = $data['sort'];
+    $dir          = $data['dir'];
 
     include __DIR__ . '/../views/admin/dashboard.php';
 }
-
