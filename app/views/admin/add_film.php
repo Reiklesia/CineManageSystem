@@ -3,13 +3,6 @@ include __DIR__ . '/../../includes/header.php';
 $old = $_SESSION['old'] ?? [];
 ?>
 
-<?php if (!empty($_SESSION['flash'])): ?>
-    <div class="flash <?= htmlspecialchars($_SESSION['flash']['type']) ?>">
-        <?= $_SESSION['flash']['message'] ?>
-    </div>
-    <?php unset($_SESSION['flash']); ?>
-<?php endif; ?>
-
 <h2>Ajouter un film</h2>
 
 <form method="POST" action="index.php?action=add_film">
