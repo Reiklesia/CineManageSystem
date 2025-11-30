@@ -1,5 +1,7 @@
 <?php
 
+use LDAP\Result;
+
 require_once __DIR__ . "/../includes/db_connect.php";
 
 function getAllFilms()
@@ -34,4 +36,12 @@ function getById($id)
 
     return $result->fetch_assoc();
 }
+
+function ajoutFilm($titre,$realisateur,$genre,$annee,$description){
+    global $conn;
+    $result = $conn->query("INSERT INTO films (titre,realisateur,genre,annee_sortie,description) 
+                 VALUES ('$titre','$realisateur','$genre','$annee','$description')");
+    return $result;
+}
+
 ?>
