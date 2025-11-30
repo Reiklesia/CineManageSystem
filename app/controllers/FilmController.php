@@ -64,7 +64,7 @@ function editFilm()
     $annee = (int) $_POST['annee_sortie'];
     $description = $_POST['description'];
 
-    $result = updateFilm($id, $titre, $realisateur, $genre, $annee, $description);
+    $result = modifierFilm($id, $titre, $realisateur, $genre, $annee, $description);
 
     if ($result) {
         $_SESSION['flash'] = [
@@ -81,6 +81,30 @@ function editFilm()
     }
 }
 
+function deleteFilm()
+{
+	if (!isset($_GET['id'])) {
+		echo "<p>Requête invalide.</p>";
+		return;
+	}
+
+	$id = (int) $_GET['id'];
+	$result = supprimerFilm($id);
+
+	if ($result) {
+		$_SESSION['flash'] = [
+			'type' => 'success',
+			'message' => 'Film supprimé avec succès.'
+		];
+	} else {
+		$_SESSION['flash'] = [
+			'type' => 'error',
+			'message' => "Impossible de supprimer le film."
+		];
+	}
+	header('Location: index.php?action=dashboard');
+	exit;
+}
 
 function afficherFormAjout()
 {

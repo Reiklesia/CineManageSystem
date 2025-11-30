@@ -49,6 +49,10 @@ switch ($action) {
 		afficherFormEdit();
 		break;
 
+	case 'delete_film':
+		deleteFilm();
+		break;
+
     default:
         http_response_code(404);
         echo "<p>Page introuvable.</p>";

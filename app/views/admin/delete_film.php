@@ -6,3 +6,4 @@ $id = intval($_GET['id']);
 $conn->query("DELETE FROM films WHERE id=$id");
 header('Location: dashboard.php');
 exit;
+?>
