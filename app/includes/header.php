@@ -8,14 +8,20 @@
 </head>
 
 <body>
-    <header>
-        <h1>CinéManage</h1>
-        <nav>
-            <a href="index.php?action=list">Liste de films</a>
-            <a href="<?php echo BASE_URL; ?>index.php">Accueil</a>
-            <a href="index.php?action=connexion">Connexion</a>
-        </nav>
-    </header>
+	<header>
+		<h1>CinéManage</h1>
+		<nav>
+			<a href="index.php?action=list">Liste de films</a>
+			<a href="<?php echo BASE_URL; ?>index.php">Accueil</a>
+
+			<?php if (isset($_SESSION['login']) && $_SESSION['login'] === 'admin'): ?>
+				<a href="index.php?action=dashboard">Tableau de bord</a>
+			<?php else: ?>
+				<a href="index.php?action=connexion">Connexion</a>
+			<?php endif; ?>
+		</nav>
+	</header>
+
     <hr>
     <?php if (isset($_SESSION['flash'])): ?>
         <div class="alert <?php echo $_SESSION['flash']['type']; ?>">
