@@ -1,6 +1,5 @@
 <?php
 require_once __DIR__ . "/../models/utilisateur/UtilisateurModel.php";
-
 function RouteAuthentification()
 {
 
@@ -48,41 +47,40 @@ function RouteAuthentification()
 
 function listeUtilisateursComplete()
 {
-    $parPage = 10;
+    $parPageUsers = 10;
 
-    if (isset($_GET['page_users']) && ctype_digit($_GET['page_users']) && (int)$_GET['page_users'] > 0) {
-        $pageCouranteUsers = (int) $_GET['page_users'];
+    if (isset($_GET['user_page']) && ctype_digit($_GET['user_page']) && (int)$_GET['user_page'] > 0) {
+        $pageCouranteUsers = (int) $_GET['user_page'];
     } else {
         $pageCouranteUsers = 1;
     }
 
     $totalUtilisateurs = countAllUtilisateurs();
-    $pagesTotalesUsers = max(1, (int) ceil($totalUtilisateurs / $parPage));
+    $pagesTotalesUsers = max(1, (int) ceil($totalUtilisateurs / $parPageUsers));
 
     if ($pageCouranteUsers > $pagesTotalesUsers) {
         $pageCouranteUsers = $pagesTotalesUsers;
     }
 
-    $offset = ($pageCouranteUsers - 1) * $parPage;
+    $offset = ($pageCouranteUsers - 1) * $parPageUsers;
 
     $allowedSorts = ['id', 'nom_utilisateur', 'statut'];
-
-    $sort = $_GET['user_sort'] ?? 'id';
-    if (!in_array($sort, $allowedSorts, true)) {
-        $sort = 'id';
+    $user_sort = $_GET['user_sort'] ?? 'id';
+    if (!in_array($user_sort, $allowedSorts, true)) {
+        $user_sort = 'id';
     }
 
-    $dir = $_GET['user_dir'] ?? 'asc';
-    $dir = strtolower($dir) === 'desc' ? 'desc' : 'asc';
+    $user_dir = $_GET['user_dir'] ?? 'asc';
+    $user_dir = strtolower($user_dir) === 'desc' ? 'desc' : 'asc';
 
-    $result = getTousLesUtilisateursPagines($parPage, $offset, $sort, $dir);
+    $result = getTousLesUtilisateursPagines($parPageUsers, $offset, $user_sort, $user_dir);
 
     return [
-        'result'             => $result,
-        'pageCouranteUsers'  => $pageCouranteUsers,
-        'pagesTotalesUsers'  => $pagesTotalesUsers,
-        'user_sort'          => $sort,
-        'user_dir'           => $dir,
+        'result'            => $result,
+        'pageCouranteUsers' => $pageCouranteUsers,
+        'pagesTotalesUsers' => $pagesTotalesUsers,
+        'user_sort'         => $user_sort,
+        'user_dir'          => $user_dir,
     ];
 }
 
@@ -113,7 +111,7 @@ function addUser()
 
     $nomUtilisateur = trim($_POST['nom_utilisateur'] ?? '');
     $motDePasse     = trim($_POST['mot_de_passe'] ?? '');
-    $statut         = 'actif';
+    $statut         = $_POST['statut'] ?? 'actif';
 
     $errors = [];
 
@@ -121,6 +119,8 @@ function addUser()
         $errors[] = "Le nom d'utilisateur est obligatoire.";
     } elseif (mb_strlen($nomUtilisateur) > 50) {
         $errors[] = "Le nom d'utilisateur ne doit pas dépasser 50 caractères.";
+    } elseif (usernameExists($nomUtilisateur)) {
+        $errors[] = "Ce nom d'utilisateur existe déjà.";
     }
 
     if ($motDePasse === '') {

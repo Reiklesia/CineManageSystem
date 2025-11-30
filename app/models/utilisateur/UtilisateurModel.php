@@ -120,6 +120,25 @@ function modifierUtilisateur($id, $nomUtilisateur)
     return $stmt->execute();
 }
 
+function usernameExists(string $nomUtilisateur): bool
+{
+    global $conn;
+
+    $sql = "SELECT 1 FROM utilisateurs WHERE nom_utilisateur = ? LIMIT 1";
+    $stmt = $conn->prepare($sql);
+
+    if (!$stmt) {
+        return false;
+    }
+
+    $stmt->bind_param('s', $nomUtilisateur);
+    $stmt->execute();
+
+    $result = $stmt->get_result();
+
+    return $result->num_rows > 0;
+}
+
 function ajoutUtilisateur($nomUtilisateur, $motDePasse, $statut = 'actif')
 {
     global $conn;
