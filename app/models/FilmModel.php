@@ -67,6 +67,16 @@ function ajoutFilm($titre,$realisateur,$genre,$annee,$description){
     return $result;
 }
 
+function setFilmActiveStatus($id, $status)
+{
+    global $conn;
+
+    $stmt = $conn->prepare("UPDATE films SET statut = ? WHERE id = ?");
+    $stmt->bind_param("si", $status, $id);
+
+    return $stmt->execute();
+}
+
 function modifierFilm($id, $titre, $realisateur, $genre, $annee, $description)
 {
 	global $conn;

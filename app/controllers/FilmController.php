@@ -145,6 +145,70 @@ function addFilm()
     }
 }
 
+function activateFilm()
+{
+    if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) {
+        echo "<p>Requête invalide : identifiant de film non valide.</p>";
+        return;
+    }
+
+    $id = (int) $_GET['id'];
+
+    if ($id <= 0) {
+        echo "<p>Requête invalide : identifiant de film inconnu.</p>";
+        return;
+    }
+
+    $result = setFilmActiveStatus($id, 'actif');
+
+    if ($result) {
+        $_SESSION['flash'] = [
+            'type' => 'success',
+            'message' => 'Film activé avec succès.'
+        ];
+    } else {
+        $_SESSION['flash'] = [
+            'type' => 'error',
+            'message' => "Impossible d'activer le film."
+        ];
+    }
+
+    header('Location: index.php?action=dashboard');
+    exit;
+}
+
+function deactivateFilm()
+{
+    if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) {
+        echo "<p>Requête invalide : identifiant de film non valide.</p>";
+        return;
+    }
+
+    $id = (int) $_GET['id'];
+
+    if ($id <= 0) {
+        echo "<p>Requête invalide : identifiant de film inconnu.</p>";
+        return;
+    }
+
+    $result = setFilmActiveStatus($id, 'inactif');
+
+    if ($result) {
+        $_SESSION['flash'] = [
+            'type' => 'success',
+            'message' => 'Film désactivé avec succès.'
+        ];
+    } else {
+        $_SESSION['flash'] = [
+            'type' => 'error',
+            'message' => "Impossible de désactiver le film."
+        ];
+    }
+
+    header('Location: index.php?action=dashboard');
+    exit;
+}
+
 function editFilm()
 {
     if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['update'])) {

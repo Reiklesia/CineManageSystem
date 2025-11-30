@@ -41,6 +41,14 @@ switch ($action) {
         afficherFormAjout();
         break;
 
+	case 'deactivate_film':
+		deactivateFilm();
+		break;
+
+	case 'activate_film':
+		activateFilm();
+		break;
+
 	case 'edit_film':
         editFilm();
         break;
