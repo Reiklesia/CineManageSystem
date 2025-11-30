@@ -9,12 +9,19 @@
 
 <body>
     <header>
-        <h1>CinéManage</h1>
-        <nav>
-            <a href="index.php?action=list">Liste de films</a>
-            <a href="<?php echo BASE_URL; ?>index.php">Accueil</a>
-            <a href="index.php?action=connexion">Connexion</a>
-        </nav>
+        <div class="left">
+            <nav>
+                <a href="<?php echo BASE_URL; ?>index.php">Consulter l'horaire</a>
+                <a href="<?php echo BASE_URL; ?>admin/login.php">Tarifs</a>
+                <a href="<?php echo BASE_URL; ?>admin/login.php">Nous contacter</a>
+            </nav>
+        </div>
+        <div class="center">
+            <h1>CinéGest</h1>
+        </div>
+        <div class="right">
+            <a class="btn-login" href="<?php echo BASE_URL; ?>admin/login.php">Se connecter</a>
+        </div>
     </header>
     <hr>
     <?php if (isset($_SESSION['flash'])): ?>
