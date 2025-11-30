@@ -20,6 +20,10 @@ function RouteAuthentification()
 
         if ($resultat) {
             $_SESSION["login"] = $login;
+            $_SESSION['flash'] = [
+                'type' => 'success',
+                'message' => 'Connexion réussie.'
+            ];
 
             if ($resultat['nom_utilisateur'] === 'admin') {
                 header("Location: index.php?action=dashboard");
@@ -29,7 +33,10 @@ function RouteAuthentification()
                 exit;
             }
         } else {
-            $error = "Identifiants invalides.";
+            $_SESSION['flash'] = [
+                'type' => 'error',
+                'message' => 'Identifiants invalides.'
+            ];
             include __DIR__ . '/../views/login.php';
         }
 
