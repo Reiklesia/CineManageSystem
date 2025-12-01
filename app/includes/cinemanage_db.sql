@@ -12,16 +12,22 @@ COLLATE utf8mb4_general_ci;
 
 USE cinemanage_db;
 
--- 2️⃣ Table : administrateurs
-CREATE TABLE IF NOT EXISTS administrateurs (
+-- 2️⃣ Table : utilisateurs
+CREATE TABLE IF NOT EXISTS utilisateurs (
     id INT AUTO_INCREMENT PRIMARY KEY,
     nom_utilisateur VARCHAR(50) NOT NULL,
-    mot_de_passe VARCHAR(255) NOT NULL
+    mot_de_passe VARCHAR(255) NOT NULL,
+	role ENUM('admin', 'user') DEFAULT 'user'
 );
 
--- Insérer un administrateur de test
-INSERT INTO administrateurs (nom_utilisateur, mot_de_passe)
-VALUES ('admin', 'admin123'); -- ⚠️ mot de passe en clair (non sécurisé)
+INSERT INTO utilisateurs (nom_utilisateur, mot_de_passe, role)
+VALUES ('admin', 'admin123', 'admin');
+INSERT INTO utilisateurs (nom_utilisateur, mot_de_passe, role)
+VALUES ('user1', 'user123', 'user');
+INSERT INTO utilisateurs (nom_utilisateur, mot_de_passe, role)
+VALUES ('user2', 'user234', 'user');
+INSERT INTO utilisateurs (nom_utilisateur, mot_de_passe, role)
+VALUES ('user3', 'user345', 'user');
 
 -- 3️⃣ Table : films
 CREATE TABLE IF NOT EXISTS films (

@@ -12,6 +12,8 @@
         <th>Genre</th>
         <th>Année</th>
         <th>Description</th>
+		<th>Éditer</th>
+		<th>Supprimer</th>
     </tr>
     <?php while ($film = $result->fetch_assoc()): ?>
         <tr>
