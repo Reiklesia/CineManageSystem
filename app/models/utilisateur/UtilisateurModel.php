@@ -5,7 +5,7 @@ function Authentification($nomUtilisateur, $motDePasse)
 
     global $conn;
 
-    $stmt = $conn->prepare("SELECT * FROM administrateurs WHERE nom_utilisateur = ? and mot_de_passe = ?");
+    $stmt = $conn->prepare("SELECT * FROM utilisateurs WHERE nom_utilisateur = ? and mot_de_passe = ?");
     $stmt->bind_param("ss", $nomUtilisateur, $motDePasse);
     $stmt->execute();
 

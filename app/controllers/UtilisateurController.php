@@ -4,7 +4,7 @@ function RouteAuthentification()
 {
 
     if (isset($_SESSION["login"])) {
-        if ($_SESSION["login"] === 'admin') {
+        if ($_SESSION["role"] === 'admin') {
             header("Location: index.php?action=dashboard");
             exit;
         } else {
@@ -20,6 +20,7 @@ function RouteAuthentification()
 
         if ($resultat) {
             $_SESSION["login"] = $login;
+            $_SESSION["role"] = $resultat['role'];
             $_SESSION['flash'] = [
                 'type' => 'success',
                 'message' => 'Connexion réussie.'
