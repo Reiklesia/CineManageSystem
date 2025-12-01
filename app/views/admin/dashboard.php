@@ -155,7 +155,7 @@
     <div class="pagination">
         <?php if ($userPageCourante > 1): ?>
             <a href="index.php?action=dashboard&user_page=<?= $userPageCourante - 1 ?>&user_sort=<?= urlencode($user_sort) ?>&user_dir=<?= urlencode($user_dir) ?>" class="btn">
-                ← Précédent (utilisateurs)
+                ← Précédent
             </a>
         <?php endif; ?>
 
