@@ -12,7 +12,7 @@ $action = $_GET['action'] ?? 'list';
 
 switch ($action) {
     case 'list':
-        afficherListeFilmsActifs();
+        ListeFilmsComplete();
         break;
 
     case 'film':
@@ -38,7 +38,7 @@ switch ($action) {
         break;
     
     case 'form_add_film':
-        afficherFormAjoutFilm();
+        afficherFormAjout();
         break;
 
 	case 'edit_film':
@@ -46,47 +46,11 @@ switch ($action) {
         break;
 
 	case 'form_edit_film':
-		afficherFormEditFilm();
-		break;
-
-	case 'activate_film':
-		activateFilm();
-		break;
-
-	case 'deactivate_film':
-		deactivateFilm();
+		afficherFormEdit();
 		break;
 
 	case 'delete_film':
 		deleteFilm();
-		break;
-
-	case 'add_user':
-		addUser();
-		break;
-
-	case 'form_add_user':
-		afficherFormAjoutUser();
-		break;
-
-	case 'edit_user':
-		editUser();
-		break;
-
-	case 'form_edit_user':
-		afficherFormEditUser();
-		break;
-
-	case 'activate_user':
-		activateUser();
-		break;
-
-	case 'deactivate_user':
-		deactivateUser();
-		break;
-
-	case 'delete_user':
-		deleteUser();
 		break;
 
     default:

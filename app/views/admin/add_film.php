@@ -1,40 +1,19 @@
 <?php
-include __DIR__ . '/../../includes/header.php';
-$old = $_SESSION['old'] ?? [];
+// session_start();
+// if(!isset($_SESSION['admin'])) header('Location: login.php');
+
+// require_once '../includes/db_connect.php';
+include __DIR__ . '/../../includes/header.php'
 ?>
-
+<link rel="stylesheet" href="../public/assets/css/style.css">
 <h2>Ajouter un film</h2>
-
 <form method="POST" action="index.php?action=add_film">
-    <label>Titre:
-        <input type="text" name="titre"
-               value="<?= htmlspecialchars($old['titre'] ?? '') ?>" required>
-    </label><br>
-
-    <label>Réalisateur:
-        <input type="text" name="realisateur"
-               value="<?= htmlspecialchars($old['realisateur'] ?? '') ?>" required>
-    </label><br>
-
-    <label>Genre:
-        <input type="text" name="genre"
-               value="<?= htmlspecialchars($old['genre'] ?? '') ?>" required>
-    </label><br>
-
-    <label>Année:
-        <input type="number" name="annee_sortie"
-               value="<?= htmlspecialchars($old['annee_sortie'] ?? '') ?>" required>
-    </label><br>
-
-    <label>Description:<br>
-        <textarea name="description" required><?= htmlspecialchars($old['description'] ?? '') ?></textarea>
-    </label><br>
-
+    <label>Titre: <input type="text" name="titre" required></label><br>
+    <label>Réalisateur: <input type="text" name="realisateur" required></label><br>
+    <label>Genre: <input type="text" name="genre" required></label><br>
+    <label>Année: <input type="number" name="annee_sortie" required></label><br>
+    <label>Description:<br><textarea name="description" required></textarea></label><br>
     <button type="submit" name="add">Ajouter</button>
 </form>
 
-<?php
-unset($_SESSION['old']);
-include __DIR__ . '/../../includes/footer.php';
-?>
-
+    <?php include __DIR__ . '/../../includes/footer.php' ?>

@@ -1,6 +1,5 @@
 <?php
 include __DIR__ . '/../../includes/header.php';
-$old = $_SESSION['old'] ?? [];
 ?>
 
 <h2>Modifier le film</h2>
