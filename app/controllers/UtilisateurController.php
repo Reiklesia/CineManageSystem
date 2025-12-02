@@ -1,16 +1,18 @@
 <?php
 require_once __DIR__ . "/../models/utilisateur/UtilisateurModel.php";
+require_once __DIR__ . '/../helper/auth.php';
 function RouteAuthentification()
 {
 
     if (isset($_SESSION["login"])) {
-        if ($_SESSION["role"] === 'admin') {
+        if (isAdmin()) {
             header("Location: index.php?action=dashboard");
             exit;
         } else {
             header("Location: index.php?action=list");
             exit;
         }
+
     }
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST["connexion"])) {
         $login = trim($_POST['username']) ?? '';
@@ -26,7 +28,7 @@ function RouteAuthentification()
                 'message' => 'Connexion réussie.'
             ];
 
-            if ($resultat['nom_utilisateur'] === 'admin') {
+            if (isAdmin()) {
                 header("Location: index.php?action=dashboard");
                 exit;
             } else {
