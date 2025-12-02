@@ -1,6 +1,8 @@
 <?php
 require_once __DIR__ . "/../models/utilisateur/UtilisateurModel.php";
 require_once __DIR__ . '/../helper/auth.php';
+
+// David
 function RouteAuthentification()
 {
 
@@ -48,6 +50,7 @@ function RouteAuthentification()
     }
 }
 
+// David
 function Logout()
 {
 
@@ -63,6 +66,5 @@ function Logout()
     header("Location: index.php?action=list");
     exit;
 }
-
 
 ?>

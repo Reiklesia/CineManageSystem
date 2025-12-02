@@ -1,5 +1,6 @@
 <?php
 
+// David
 function Authentification($nomUtilisateur, $motDePasse)
 {
 

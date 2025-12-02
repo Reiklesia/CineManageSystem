@@ -1,9 +1,7 @@
 <?php
-
-use LDAP\Result;
-
 require_once __DIR__ . "/../includes/db_connect.php";
 
+// David
 function getAllFilms()
 {
     // Validation des données : à venir
@@ -18,7 +16,7 @@ function getAllFilms()
     return $result;
 }
 
-
+// David
 function getById($id)
 {
     // Validation des données : à venir
@@ -37,6 +35,7 @@ function getById($id)
     return $result->fetch_assoc();
 }
 
+// Jérémy
 function ajoutFilm($titre,$realisateur,$genre,$annee,$description){
     global $conn;
     $result = $conn->query("INSERT INTO films (titre,realisateur,genre,annee_sortie,description) 
@@ -44,20 +43,26 @@ function ajoutFilm($titre,$realisateur,$genre,$annee,$description){
     return $result;
 }
 
+// Amélie
 function modifierFilm($id, $titre, $realisateur, $genre, $annee, $description)
 {
 	global $conn;
 	$stmt = $conn->prepare("UPDATE films SET titre = ?, realisateur = ?, genre = ?, annee_sortie = ?, description = ? WHERE id = ?");
 	$stmt->bind_param("sssisi", $titre, $realisateur, $genre, $annee, $description, $id);
-	return $stmt->execute();
+	$result = $stmt->execute();
+	$stmt->close();
+	return $result;
 }
 
+// Amélie
 function supprimerFilm($id)
 {
 	global $conn;
 	$stmt = $conn->prepare("DELETE FROM films WHERE id = ?");
 	$stmt->bind_param("i", $id);
-	return $stmt->execute();
+	$result = $stmt->execute();
+	$stmt->close();
+	return $result;
 }
 
 ?>
