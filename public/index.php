@@ -6,6 +6,7 @@ ini_set('display_errors', 1);
 require_once __DIR__ . '/../app/controllers/FilmController.php';
 require_once __DIR__ . '/../app/controllers/UtilisateurController.php';
 require_once __DIR__ . '/../app/controllers/AdminController.php';
+require_once __DIR__ . '/../app/helper/auth.php';
 
 
 $action = $_GET['action'] ?? 'list';
@@ -32,26 +33,26 @@ switch ($action) {
     case 'logout':
         Logout();
         break;
-    
-    case 'add_film' :
+
+    case 'add_film':
         addFilm();
         break;
-    
+
     case 'form_add_film':
         afficherFormAjout();
         break;
 
-	case 'edit_film':
+    case 'edit_film':
         editFilm();
         break;
 
-	case 'form_edit_film':
-		afficherFormEdit();
-		break;
+    case 'form_edit_film':
+        afficherFormEdit();
+        break;
 
-	case 'delete_film':
-		deleteFilm();
-		break;
+    case 'delete_film':
+        deleteFilm();
+        break;
 
     default:
         http_response_code(404);
