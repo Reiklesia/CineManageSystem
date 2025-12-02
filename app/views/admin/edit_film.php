@@ -35,3 +35,5 @@ include __DIR__ . '/../../includes/header.php';
 </form>
 
 <?php include __DIR__ . '/../../includes/footer.php'; ?>
+
+<script src="<?php echo BASE_URL; ?>public/assets/js/util.js"></script>
