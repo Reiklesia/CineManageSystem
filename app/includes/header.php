@@ -16,7 +16,6 @@
                 <?php if ($_SESSION['role'] === 'admin'): ?>
                     <a href="index.php?action=dashboard">Tableau de bord</a>
                 <?php elseif ($_SESSION['role'] === 'user'): ?>
-                    <!-- Page profil a ajouter dans le futur. -->
                     <a href="index.php?action=profil">Profil</a>
                 <?php endif; ?>
                 <a href="index.php?action=logout">Déconnexion</a>
