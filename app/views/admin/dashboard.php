@@ -26,7 +26,4 @@
     </tr>
     <?php endwhile; ?>
 </table>
-
-<a href="index.php?action=logout">Déconnexion</a>
-
 <?php include __DIR__ . '/../../includes/footer.php'; ?>

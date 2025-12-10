@@ -28,26 +28,27 @@ if (session_status() === PHP_SESSION_NONE) {
         </div>
 
         <div class="right">
-            <?php if (!isset($_SESSION['login'])): ?>
+            <?php if (!isset($_SESSION['login']) && (!isset($_GET['action']) || $_GET['action'] !== 'connexion')): ?>
                 <a class="btn-login" href="index.php?action=connexion">
                     Se connecter
                 </a>
 
             <?php else: ?>
-                <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                <?php if (isAdmin()): ?>
                     <a class="btn-login" href="index.php?action=dashboard">
                         Tableau de bord
                     </a>
-                <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] === 'user'): ?>
+                <?php elseif (isUser()): ?>
                     <a class="btn-login" href="index.php?action=profil">
                         Profil
                     </a>
                 <?php endif; ?>
-
+            <?php if (isset($_SESSION['login']) && (!isset($_GET['action']) || $_GET['action'] !== 'connexion')): ?>
                 <a class="btn-login" href="index.php?action=logout">
                     Déconnexion
                 </a>
-            <?php endif; ?>
+                <?php endif; ?>
+        <?php endif; ?>
         </div>
     </header>
 

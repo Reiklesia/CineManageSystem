@@ -32,12 +32,15 @@ header {
 	align-items: center;
 	justify-content: space-between;
 	padding: 20px 60px;
-	background: linear-gradient(90deg, #0b1325, #1a237e);
-	color: #ffffff;
 	margin: 0;
 	border-radius: 0;
 }
 
+main header {
+	background: linear-gradient(90deg, #0b1325, #1a237e);
+	color: #fafafa;
+	box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
 header .left {
 	display: flex;
 	align-items: center;
@@ -50,7 +53,6 @@ header .left nav {
 
 header .left nav a {
 	text-decoration: none;
-	color: #ffffff;
 	font-weight: 600;
 	font-size: 0.95rem;
 	transition: color 0.2s ease;
@@ -70,7 +72,7 @@ header h1 {
 	margin: 0;
 	font-size: 2.2rem;
 	font-family: "Poppins", sans-serif;
-	color: #ffffff;
+	color:#1a237e;
 }
 
 header .right {
@@ -92,6 +94,8 @@ header .right {
 	cursor: pointer;
 	transition: background-color 0.2s ease, transform 0.1s ease;
 	display: inline-block;
+	top: -30px;
+	position: relative;
 }
 
 .btn-login:hover {
@@ -230,8 +234,15 @@ tr:hover {
 }
 
 /* ========== FORMULAIRES ========== */
-
+.login-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 4em	;
+}
 form {
+	align-items: center;
 	background: #ffffff;
 	padding: 20px;
 	border-radius: 8px;
