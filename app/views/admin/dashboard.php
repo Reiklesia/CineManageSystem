@@ -5,7 +5,6 @@
 
 <table border="1">
     <tr>
-        <th>ID</th>
         <th>Titre</th>
         <th>Réalisateur</th>
         <th>Genre</th>
@@ -16,7 +15,6 @@
     </tr>
     <?php while ($film = $result->fetch_assoc()): ?>
     <tr>
-        <td><?php echo (int) $film['id']; ?></td>
         <td><?php echo htmlspecialchars($film['titre']); ?></td>
         <td><?php echo htmlspecialchars($film['realisateur']); ?></td>
         <td><?php echo htmlspecialchars($film['genre']); ?></td>

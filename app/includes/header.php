@@ -1,31 +1,58 @@
+<?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+?>
 <!DOCTYPE html>
 <html lang="fr">
 
 <head>
     <meta charset="UTF-8">
-    <title>CinéManage</title>
-    <link rel="stylesheet" href="<?php echo BASE_URL; ?>public/assets/css/style.css">
+    <title>CinéGest</title>
+
+    <link rel="stylesheet" href="assets/css/style.css">
 </head>
 
 <body>
-    <header>
-        <h1>CinéManage</h1>
-        <nav>
-            <a href="index.php?action=list">Liste de films</a>
-            <?php if (isset($_SESSION['role'])): ?>
-                <?php if ($_SESSION['role'] === 'admin'): ?>
-                    <a href="index.php?action=dashboard">Tableau de bord</a>
-                <?php elseif ($_SESSION['role'] === 'user'): ?>
-                    <!-- Page profil a ajouter dans le futur. -->
-                    <a href="index.php?action=profil">Profil</a>
-                <?php endif; ?>
-                <a href="index.php?action=logout">Déconnexion</a>
+    <header class="main-header">
+        <div class="left">
+            <nav>
+                <a href="index.php?action=list">Consulter l'horaire</a>
+                <a href="index.php?action=tarifs">Tarifs</a>
+                <a href="index.php?action=contact">Nous contacter</a>
+            </nav>
+        </div>
+
+        <div class="center">
+            <h1>CinéGest</h1>
+        </div>
+
+        <div class="right">
+            <?php if (!isset($_SESSION['login'])): ?>
+                <a class="btn-login" href="index.php?action=connexion">
+                    Se connecter
+                </a>
+
             <?php else: ?>
-                <a href="index.php?action=connexion">Connexion</a>
+                <?php if (isset($_SESSION['role']) && $_SESSION['role'] === 'admin'): ?>
+                    <a class="btn-login" href="index.php?action=dashboard">
+                        Tableau de bord
+                    </a>
+                <?php elseif (isset($_SESSION['role']) && $_SESSION['role'] === 'user'): ?>
+                    <a class="btn-login" href="index.php?action=profil">
+                        Profil
+                    </a>
+                <?php endif; ?>
+
+                <a class="btn-login" href="index.php?action=logout">
+                    Déconnexion
+                </a>
             <?php endif; ?>
-        </nav>
+        </div>
     </header>
+
     <hr>
+
     <?php if (isset($_SESSION['flash'])): ?>
         <div class="alert <?php echo $_SESSION['flash']['type']; ?>">
             <?php echo htmlspecialchars($_SESSION['flash']['message']); ?>
