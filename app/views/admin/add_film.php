@@ -7,6 +7,7 @@
     <label>Genre: <input type="text" name="genre" required></label><br>
     <label>Année: <input type="number" name="annee_sortie" required></label><br>
     <label>Description:<br><textarea name="description" required></textarea></label><br>
+    <label>Affiche du film: <input type="file" name="affiche"></label><br>
     <button type="submit" name="add">Ajouter</button>
 </form>
 

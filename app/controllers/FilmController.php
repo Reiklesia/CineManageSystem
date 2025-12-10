@@ -33,8 +33,10 @@ function addFilm()
       $genre = $_POST['genre'];
       $annee = intval($_POST['annee_sortie']);
       $description = $_POST['description'];
+      $affiche = $_FILES['affiche']['name'] ?? null;
 
-      $result = ajoutFilm($titre, $realisateur, $genre, $annee, $description);
+
+      $result = ajoutFilm($titre, $realisateur, $genre, $annee, $description, $affiche);
       if ($result) {
          $_SESSION['flash'] = [
             'type' => 'success',
@@ -79,6 +81,7 @@ function editFilm()
     $genre       = trim($_POST['genre'] ?? '');
     $anneeBrut   = trim($_POST['annee_sortie'] ?? '');
     $description = trim($_POST['description'] ?? '');
+    $affiche = $_FILES['affiche']['name'] ?? null;
 
     $erreurs = [];
 
@@ -109,6 +112,7 @@ function editFilm()
             'genre'        => $genre,
             'annee_sortie' => $anneeBrut,
             'description'  => $description,
+            'affiche'      => $affiche
         ];
 
         $_SESSION['flash'] = [
@@ -122,7 +126,7 @@ function editFilm()
 
     $annee = (int)$anneeBrut;
 
-    $result = modifierFilm($id, $titre, $realisateur, $genre, $annee, $description);
+    $result = modifierFilm($id, $titre, $realisateur, $genre, $annee, $description, $affiche);
 
     if ($result) {
         $_SESSION['flash'] = [
