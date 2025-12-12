@@ -6,7 +6,9 @@ function getAllFilms()
 {
     // Validation des données : à venir
     global $conn;
-    $req = "SELECT * From films ORDER BY titre ASC";
+    $req = "SELECT * From films 
+	WHERE affiche IS NOT NULL AND affiche <> '' 
+	ORDER BY titre ASC";
     $result = $conn->query($req);
 
     if (!$result) {
