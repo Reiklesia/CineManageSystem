@@ -224,3 +224,15 @@ function afficherFormEdit()
 
     include __DIR__ . '/../views/admin/edit_film.php';
 }
+
+// Amélie
+function afficherAccueil()
+{
+	$result = getAllFilms();
+
+	if ($result) {
+    	include __DIR__ . '/../views/accueil.php';
+   	} else {
+    	echo "<p>Films introuvables.</p>";
+   	}
+}
