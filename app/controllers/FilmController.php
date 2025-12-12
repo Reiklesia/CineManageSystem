@@ -13,6 +13,17 @@ function ListeFilmsComplete()
    }
 }
 
+// Amélie
+function ListeFilmsAvecAffiches()
+{
+	$result = getAllFilmsAvecAffiches();
+	if ($result) {
+		include __DIR__ . '/../views/filmList.php';
+   	} else {
+		echo "<p>Films introuvables.</p>";
+   	}
+}
+
 // David
 function FilmById($id)
 {
@@ -228,7 +239,7 @@ function afficherFormEdit()
 // Amélie
 function afficherAccueil()
 {
-	$result = getAllFilms();
+	$result = getAllFilmsAvecAffiches();
 
 	if ($result) {
     	include __DIR__ . '/../views/accueil.php';
