@@ -12,6 +12,11 @@ require_once __DIR__ . '/../app/helper/auth.php';
 $action = $_GET['action'] ?? 'list';
 
 switch ($action) {
+
+	case 'accueil':
+		afficherAccueil();
+		break;
+
     case 'list':
         ListeFilmsComplete();
         break;

@@ -12,7 +12,7 @@
                 <a href="index.php?action=contact">Nous contacter</a>
                 <a href="index.php?action=afficherFormInfolettre">S’inscrire à l’infolettre</a>
                 <?php else: ?>
-                <a href="index.php?action=list">Retourner à l'accueil</a>
+                <a href="index.php?action=accueil">Retourner à l'accueil</a>
             <?php endif; ?>
             <?php if (!isset($_SESSION['login']) && (!isset($_GET['action']) || $_GET['action'] !== 'connexion')): ?>
                 <a href="index.php?action=connexion">Se connecter</a>

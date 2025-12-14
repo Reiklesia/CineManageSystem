@@ -38,17 +38,22 @@ CREATE TABLE IF NOT EXISTS films (
     affiche VARCHAR(255)
 );
 
-
 -- Insérer quelques films de démonstration
-INSERT INTO films (titre, realisateur, genre, annee_sortie, description) VALUES
+-- ⚠️ la colonne "affiche" contient uniquement le NOM du fichier, 
+--    les images doivent être placées dans /public/assets/affiches/
+INSERT INTO films (titre, realisateur, genre, annee_sortie, description, affiche) VALUES
     ('Inception', 'Christopher Nolan', 'Science-Fiction', 2010,
-     'Un voleur qui infiltre les rêves des autres pour voler leurs secrets doit accomplir une mission presque impossible.'),
+     'Un voleur qui infiltre les rêves des autres pour voler leurs secrets doit accomplir une mission presque impossible.',
+     'inception.jpg'),
     ('The Godfather', 'Francis Ford Coppola', 'Drame', 1972,
-     'L’histoire épique d’une famille mafieuse italienne à New York.'),
+     'L’histoire épique d’une famille mafieuse italienne à New York.',
+     'the_godfather.jpg'),
     ('Interstellar', 'Christopher Nolan', 'Science-Fiction', 2014,
-     'Une équipe d’explorateurs voyage à travers un trou de ver à la recherche d’un nouveau monde habitable.'),
+     'Une équipe d’explorateurs voyage à travers un trou de ver à la recherche d’un nouveau monde habitable.',
+     'interstellar.jpg'),
     ('Parasite', 'Bong Joon-ho', 'Thriller', 2019,
-     'Une satire sociale racontant la rencontre entre deux familles issues de milieux opposés.');
+     'Une satire sociale racontant la rencontre entre deux familles issues de milieux opposés.',
+     'parasite.jpg');
 
 -- 4️⃣ Table : salles
 CREATE TABLE IF NOT EXISTS salles (

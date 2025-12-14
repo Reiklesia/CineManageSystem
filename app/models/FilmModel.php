@@ -2,11 +2,12 @@
 require_once __DIR__ . "/../includes/db_connect.php";
 
 // David
-function getAllFilms()
+function getAllFilms() 
 {
     // Validation des données : à venir
     global $conn;
-    $req = "SELECT * From films ORDER BY titre ASC";
+    $req = "SELECT * From films 
+	ORDER BY titre ASC";
     $result = $conn->query($req);
 
     if (!$result) {
@@ -14,6 +15,20 @@ function getAllFilms()
     }
 
     return $result;
+}
+
+// Amélie
+function getAllFilmsAvecAffiches()
+{
+	global $conn;
+	$req = "SELECT * FROM films WHERE affiche IS NOT NULL AND affiche <> '' ORDER BY titre ASC";
+	$result = $conn->query($req);
+
+	if (!$result) {
+		die("Erreur de récupération des films avec affiches : " . $conn->error);
+	}
+
+	return $result;
 }
 
 // David
