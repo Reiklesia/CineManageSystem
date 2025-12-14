@@ -234,7 +234,7 @@ tr:hover {
 }
 
 /* ========== FORMULAIRES ========== */
-.login-container {
+/* .login-container {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
@@ -291,7 +291,79 @@ form button {
 
 form button:hover {
 	background-color: #d35400;
+} */
+legend {
+	text-align: center;
+	margin: 1em;
+	color: #03315f;
+	font-family: poppins, sans-serif;
+	font-weight: bold;
+	font-size: 24px;
+
 }
+
+.login-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	padding: 4em;
+}
+
+.login-form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	background: #ffffff;
+	padding: 20px;
+	border-radius: 8px;
+	max-width: 500px;
+	width: 100%;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-form label {
+	display: block;
+	margin-bottom: 10px;
+	font-weight: bold;
+	width: 75%;
+	font-family: poppins, sans-serif;
+}
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+	width: 75%;
+	padding: 10px;
+	margin-top: 5px;
+	margin-bottom: 15px;
+	border: 1px solid #f39c12;
+	border-radius: 5px;
+	font-size: 1em;
+	transition: border 0.3s;
+}
+
+.login-form input[type="text"]:focus,
+.login-form input[type="password"]:focus {
+	border: 2px solid #f39c12;
+	outline: none;
+}
+
+.submit-btn {
+	background-color: #f39c12;
+	color: #ffffff;
+	border: none;
+	padding: 12px 20px;
+	font-size: 1em;
+	border-radius: 5px;
+	cursor: pointer;
+	transition: background-color 0.3s;
+}
+
+.submit-btn:hover {
+	background-color: #fb8c00;
+}
+
 
 /* ========== LISTES ========== */
 
@@ -312,6 +384,113 @@ ul li {
 ul li:hover {
 	transform: translateY(-3px);
 }
+/* ========== ADD FILMS ========== */
+ .add-film-container {
+    display: flex;
+    justify-content: center;
+    margin: 4em;
+}
+
+.add-film-form {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 3em;
+    padding: 2em;
+    border: 2px solid #dcdcdc;
+    border-radius: 15px;
+    background: white;
+}
+
+
+.btn-submit {
+    flex-basis: 100%;
+    max-width: 250px;
+    width: 100%;
+    align-self: center;
+    background-color: #FFA726;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    font-size: 1rem;
+    text-align: center;
+}
+
+.btn-submit:hover {
+	background-color: #fb8c00;
+}
+
+
+/* ====== COLONNE GAUCHE ====== */
+.form-left {
+    display: flex;
+    flex-direction: column;
+    gap: 1.4em;
+    width: 350px;
+}
+
+.two-cols {
+    display: flex;
+    gap: 1.2em;
+}
+
+label {
+    display: flex;
+    flex-direction: column;
+    font-weight: 500;
+    color: #1A237E;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="date"],
+textarea,
+select {
+    border: 2px solid #1A237E;
+    border-radius: 6px;
+    padding: 8px 10px;
+    font-size: 0.9rem;
+}
+
+textarea {
+    height: 80px;
+    resize: vertical;
+}
+
+/* ====== COLONNE DROITE ====== */
+.form-right {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1em;
+}
+
+.image-preview {
+    width: 180px;
+    height: 260px;
+    border: 2px solid #dcdcdc;
+    border-radius: 10px;
+    background: #f0f0f0;
+}
+.file-label input {
+    margin-top: 8px;
+}
+
+.btn-submit {
+    margin-top: 1.5em;
+    align-self: center;
+    padding: 10px 20px;
+    background-color: #FFA726;
+    color: white;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
 
 /* ========== LIENS GÉNÉRAUX ========== */
 
