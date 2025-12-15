@@ -639,6 +639,126 @@ a:hover {
 	margin-left: 4px;
 }
 
+.film-page {
+  max-width: 1100px;
+  margin: 60px auto;
+  padding: 0 24px;
+}
+
+.film-layout {
+  display: grid;
+  grid-template-columns: 420px 1fr;
+  gap: 60px;
+}
+
+/* Affiche */
+.film-poster img {
+  width: 100%;
+  border-radius: 18px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.2);
+}
+
+/* Infos */
+.film-info {
+  padding-top: 10px;
+}
+
+.film-title {
+  font-family: "Poppins", sans-serif;
+  font-size: 2.4rem;
+  color: #1A237E;
+  margin-bottom: 12px;
+}
+
+.film-meta {
+  display: flex;
+  gap: 10px;
+  font-size: 0.95rem;
+  color: #37474F;
+  margin-bottom: 20px;
+}
+
+.film-meta .dot {
+  opacity: 0.5;
+}
+
+.film-description {
+  max-width: 540px;
+  line-height: 1.65;
+  color: #37474F;
+  margin-bottom: 22px;
+}
+
+/* Bande-annonce */
+.trailer-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  background: transparent;
+  color: #FFA726;
+  font-weight: 700;
+  text-decoration: none;
+  font-size: 1.05rem;
+  margin-bottom: 26px;
+}
+
+.trailer-btn i {
+  font-size: 2.4rem;
+  color: #FFA726;
+  transition: transform 0.15s ease, opacity 0.15s ease;
+}
+
+.trailer-btn:hover i {
+  transform: scale(1.08);
+  opacity: 0.9;
+}
+
+.showtimes {
+  display: flex;
+  gap: 14px;
+}
+
+.time-btn {
+  background: #37474F;
+  color: #fff;
+  border: none;
+  border-radius: 8px;
+  padding: 10px 18px;
+  font-weight: 700;
+}
+
+.time-btn.active {
+  background: #FFA726;
+}
+
+.active:hover {
+  cursor: pointer;
+  background: #fb8c00;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .film-layout {
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+
+  .film-title {
+    font-size: 2rem;
+  }
+}
+
+
+/* ================= INFOS SUPP ================= */
+.film-extra{
+  color: #37474F;
+  font-size: 0.95rem;
+}
+
+.film-extra p{
+  margin: 6px 0;
+}
+
 /* ========== RESPONSIVE ==========  (WORK IN PROGRESS) */
 
 /* Tablette : 2 colonnes */
