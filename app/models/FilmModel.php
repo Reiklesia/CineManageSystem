@@ -36,7 +36,8 @@ function getById($id)
 }
 
 // Jérémy
-function ajoutFilm($titre,$realisateur,$genre,$annee,$description){
+function ajoutFilm($titre, $realisateur, $genre, $annee, $description)
+{
     global $conn;
     $result = $conn->query("INSERT INTO films (titre,realisateur,genre,annee_sortie,description) 
                  VALUES ('$titre','$realisateur','$genre','$annee','$description')");
@@ -46,23 +47,40 @@ function ajoutFilm($titre,$realisateur,$genre,$annee,$description){
 // Amélie
 function modifierFilm($id, $titre, $realisateur, $genre, $annee, $description)
 {
-	global $conn;
-	$stmt = $conn->prepare("UPDATE films SET titre = ?, realisateur = ?, genre = ?, annee_sortie = ?, description = ? WHERE id = ?");
-	$stmt->bind_param("sssisi", $titre, $realisateur, $genre, $annee, $description, $id);
-	$result = $stmt->execute();
-	$stmt->close();
-	return $result;
+    global $conn;
+    $stmt = $conn->prepare("UPDATE films SET titre = ?, realisateur = ?, genre = ?, annee_sortie = ?, description = ? WHERE id = ?");
+    $stmt->bind_param("sssisi", $titre, $realisateur, $genre, $annee, $description, $id);
+    $result = $stmt->execute();
+    $stmt->close();
+    return $result;
 }
 
 // Amélie
 function supprimerFilm($id)
 {
-	global $conn;
-	$stmt = $conn->prepare("DELETE FROM films WHERE id = ?");
-	$stmt->bind_param("i", $id);
-	$result = $stmt->execute();
-	$stmt->close();
-	return $result;
+    global $conn;
+    $stmt = $conn->prepare("DELETE FROM films WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $result = $stmt->execute();
+    $stmt->close();
+    return $result;
+}
+
+
+
+// Amélie
+
+function getAllFilmsAvecAffiches()
+{
+    global $conn;
+    $req = "SELECT * FROM films WHERE affiche IS NOT NULL AND affiche <> '' ORDER BY titre ASC";
+    $result = $conn->query($req);
+
+    if (!$result) {
+        die("Erreur de récupération des films avec affiches : " . $conn->error);
+    }
+
+    return $result;
 }
 
 ?>

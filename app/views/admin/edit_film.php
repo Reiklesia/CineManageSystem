@@ -82,7 +82,8 @@
 
         <div class="form-right">
             <div class="image-preview">
-                <img src="uploads/<?php echo htmlspecialchars($film['titre']); ?>.png" alt="Aucune affiche disponible">
+                <img src="assets/affiches/<?php echo htmlspecialchars($film['titre']); ?>.jpg"
+                    alt="Aucune affiche disponible">
             </div>
 
             <label class="file-label">Changer l'affiche du film
