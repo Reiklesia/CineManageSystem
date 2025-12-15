@@ -1,15 +1,15 @@
 <?php include __DIR__ . '/../includes/header.php'; ?>
 
 <div class="login-container">
-    <h2>Connexion</h2>
 
     <form method="POST" class="login-form">
+        <legend>S'identifier</legend>
         <label for="username">Nom d'utilisateur :</label>
         <input type="text" id="username" name="username" required>
 
         <label for="password">Mot de passe :</label>
         <input type="password" id="password" name="password" required>
-        <button type="submit" name="connexion">Se connecter</button>
+        <button class="submit-btn" name="connexion">Se connecter</button>
     </form>
 </div>
 
