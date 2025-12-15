@@ -29,8 +29,9 @@ CREATE TABLE IF NOT EXISTS films (
     titre VARCHAR(100) NOT NULL,
     realisateur VARCHAR(100),
     genre VARCHAR(50),
-    annee_sortie INT,
-    description TEXT
+    annee_sortie INT VARCHAR(4),
+    description TEXT,
+    affiche VARCHAR(255)
 );
 
 -- Insérer quelques films de démonstration
