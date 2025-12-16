@@ -25,3 +25,30 @@ document.querySelectorAll("a").forEach((link) => {
 		}
 	});
 });
+
+function previewAffiche() {
+  const input = document.getElementById('inputAffiche');
+  const img = document.getElementById('previewAffiche');
+  if (!input || !img) return;
+
+  let previousUrl = null;
+
+  input.addEventListener('change', function () {
+    const file = this.files && this.files[0] ? this.files[0] : null;
+    if (!file) return;
+
+    if (!file.type || !file.type.startsWith('image/')) {
+      alert("Veuillez choisir un fichier image (png, jpg, webp).");
+      input.value = "";
+      return;
+    }
+
+    if (previousUrl) URL.revokeObjectURL(previousUrl);
+    previousUrl = URL.createObjectURL(file);
+    img.src = previousUrl;
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  previewAffiche();
+});

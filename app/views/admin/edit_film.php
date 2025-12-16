@@ -1,101 +1,102 @@
-<?php include __DIR__ . '/../../includes/header.php' ?>
-
+<?php include __DIR__ . '/../../includes/header.php'; ?>
 
 <div class="add-film-container">
 
-    <form method="POST" action="index.php?action=edit_film" enctype="multipart/form-data" class="add-film-form">
+	<form method="POST"
+		action="index.php?action=edit_film&id=<?= (int)($film['id'] ?? 0); ?>"
+		enctype="multipart/form-data"
+		class="add-film-form">
 
-        <div class="form-left">
-            <label>Titre du film
-                <input type="text" name="titre" value="<?php echo htmlspecialchars($film['titre']); ?>" required>
-            </label>
+		<div class="form-left">
+			<label>Titre du film
+				<input type="text"
+					name="titre"
+					value="<?= htmlspecialchars($film['titre'] ?? '', ENT_QUOTES, 'UTF-8'); ?>"
+					required minlength="1" maxlength="100"
+					autocomplete="off"
+					pattern="^[\p{L}\p{N}\s'\-:,.!?()]+$"
+					title="Caractères autorisés: lettres, chiffres, espaces et ponctuation simple.">
+			</label>
 
-            <div class="two-cols">
-                <label>Année de sortie
-                    <input type="number" name="annee_sortie" value="<?php echo (int) $film['annee_sortie']; ?>"
-                        required>
-                </label>
+			<div class="two-cols">
+				<label>Année de sortie
+					<input type="number"
+						name="annee_sortie"
+						value="<?= (int)($film['annee_sortie'] ?? 0); ?>"
+						required min="1888" max="<?= (int)date('Y') + 1; ?>"
+						inputmode="numeric">
+				</label>
 
-                <label for="genre">Genre
-                    <select id="genre" name="genre">
-                        <option value="Action" <?php if ($film['genre'] === 'Action')
-                            echo 'selected'; ?>>Action
-                        </option>
-                        <option value="Drama" <?php if ($film['genre'] === 'Drama')
-                            echo 'selected'; ?>>Drama</option>
-                        <option value="Comédie" <?php if ($film['genre'] === 'Comédie')
-                            echo 'selected'; ?>>Comédie
-                        </option>
-                        <option value="Horreur" <?php if ($film['genre'] === 'Horreur')
-                            echo 'selected'; ?>>Horreur
-                        </option>
-                        <option value="Science-fiction" <?php if ($film['genre'] === 'Science-fiction')
-                            echo 'selected'; ?>>Science-fiction</option>
-                        <option value="Documentaire" <?php if ($film['genre'] === 'Documentaire')
-                            echo 'selected'; ?>>
-                            Documentaire</option>
-                        <option value="Animation" <?php if ($film['genre'] === 'Animation')
-                            echo 'selected'; ?>>
-                            Animation</option>
-                        <option value="Romance" <?php if ($film['genre'] === 'Romance')
-                            echo 'selected'; ?>>Romance
-                        </option>
-                        <option value="Thriller" <?php if ($film['genre'] === 'Thriller')
-                            echo 'selected'; ?>>Thriller
-                        </option>
-                        <option value="Aventure" <?php if ($film['genre'] === 'Aventure')
-                            echo 'selected'; ?>>Aventure
-                        </option>
-                        <option value="Fantastique" <?php if ($film['genre'] === 'Fantastique')
-                            echo 'selected'; ?>>
-                            Fantastique</option>
-                        <option value="Musical" <?php if ($film['genre'] === 'Musical')
-                            echo 'selected'; ?>>Musical
-                        </option>
-                        <option value="Biographie" <?php if ($film['genre'] === 'Biographie')
-                            echo 'selected'; ?>>
-                            Biographie</option>
-                        <option value="Guerre" <?php if ($film['genre'] === 'Guerre')
-                            echo 'selected'; ?>>Guerre
-                        </option>
-                        <option value="Policier" <?php if ($film['genre'] === 'Policier')
-                            echo 'selected'; ?>>Policier
-                        </option>
-                        <option value="Western" <?php if ($film['genre'] === 'Western')
-                            echo 'selected'; ?>>Western
-                        </option>
-                    </select>
-                </label>
+				<label for="genre">Genre
+					<select id="genre" name="genre" required>
+						<option value="" disabled>Genre...</option>
+						<option value="Action" <?= (($film['genre'] ?? '') === 'Action') ? 'selected' : ''; ?>>Action</option>
+						<option value="Drama" <?= (($film['genre'] ?? '') === 'Drama') ? 'selected' : ''; ?>>Drama</option>
+						<option value="Comédie" <?= (($film['genre'] ?? '') === 'Comédie') ? 'selected' : ''; ?>>Comédie</option>
+						<option value="Horreur" <?= (($film['genre'] ?? '') === 'Horreur') ? 'selected' : ''; ?>>Horreur</option>
+						<option value="Science-fiction" <?= (($film['genre'] ?? '') === 'Science-fiction') ? 'selected' : ''; ?>>Science-fiction</option>
+						<option value="Documentaire" <?= (($film['genre'] ?? '') === 'Documentaire') ? 'selected' : ''; ?>>Documentaire</option>
+						<option value="Animation" <?= (($film['genre'] ?? '') === 'Animation') ? 'selected' : ''; ?>>Animation</option>
+						<option value="Romance" <?= (($film['genre'] ?? '') === 'Romance') ? 'selected' : ''; ?>>Romance</option>
+						<option value="Thriller" <?= (($film['genre'] ?? '') === 'Thriller') ? 'selected' : ''; ?>>Thriller</option>
+						<option value="Aventure" <?= (($film['genre'] ?? '') === 'Aventure') ? 'selected' : ''; ?>>Aventure</option>
+						<option value="Fantastique" <?= (($film['genre'] ?? '') === 'Fantastique') ? 'selected' : ''; ?>>Fantastique</option>
+						<option value="Musical" <?= (($film['genre'] ?? '') === 'Musical') ? 'selected' : ''; ?>>Musical</option>
+						<option value="Biographie" <?= (($film['genre'] ?? '') === 'Biographie') ? 'selected' : ''; ?>>Biographie</option>
+						<option value="Guerre" <?= (($film['genre'] ?? '') === 'Guerre') ? 'selected' : ''; ?>>Guerre</option>
+						<option value="Policier" <?= (($film['genre'] ?? '') === 'Policier') ? 'selected' : ''; ?>>Policier</option>
+						<option value="Western" <?= (($film['genre'] ?? '') === 'Western') ? 'selected' : ''; ?>>Western</option>
+					</select>
+				</label>
+			</div>
 
-            </div>
-            <label for="realisateur">Réalisateur:
-                <input id="realisateur" type="text" name="realisateur"
-                    value="<?php echo htmlspecialchars($film['realisateur']); ?>" required>
-            </label>
+			<label for="realisateur">Réalisateur
+				<input id="realisateur"
+					type="text"
+					name="realisateur"
+					value="<?= htmlspecialchars($film['realisateur'] ?? '', ENT_QUOTES, 'UTF-8'); ?>"
+					required minlength="1" maxlength="100"
+					autocomplete="off"
+					pattern="^[\p{L}\p{N}\s'\-:,.!?()]+$"
+					title="Caractères autorisés: lettres, chiffres, espaces et ponctuation simple.">
+			</label>
 
-            <label for="description">Description:<br>
-                <textarea id="description" name="description" required><?php
-                echo htmlspecialchars($film['description']);
-                ?></textarea>
-            </label>
-        </div>
+			<label for="description">Description
+				<textarea id="description"
+					name="description"
+					required minlength="10" maxlength="2000"><?= htmlspecialchars($film['description'] ?? '', ENT_QUOTES, 'UTF-8'); ?></textarea>
+			</label>
+		</div>
 
-        <div class="form-right">
-            <div class="image-preview">
-                <img src="assets/affiches/<?php echo htmlspecialchars($film['titre']); ?>.jpg"
-                    alt="Aucune affiche disponible">
-            </div>
+		<div class="form-right">
+			<div class="image-preview">
+				<?php
+				$affiche = (string)($film['affiche'] ?? 'placeholder-gris.jpg');
 
-            <label class="file-label">Changer l'affiche du film
-                <input type="file" name="affiche">
-            </label>
-        </div>
+				$base = rtrim(BASE_URL, '/');
+				$prefix = (substr($base, -7) === '/public') ? $base : ($base . '/public');
 
-        <button type="submit" name="update" class="btn-submit">Enregistrer</button>
-        </button>
+				$srcAffiche = $prefix . '/assets/affiches/' . rawurlencode($affiche);
+				?>
+				<img
+					id="previewAffiche"
+					src="<?= htmlspecialchars($srcAffiche, ENT_QUOTES, 'UTF-8'); ?>"
+					alt="Affiche du film <?= htmlspecialchars($film['titre'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
 
-    </form>
+			</div>
+
+
+			<label class="file-label">Changer l'affiche du film
+				<input type="file"
+					id="inputAffiche"
+					name="affiche"
+					accept="image/png,image/jpeg,image/webp">
+			</label>
+		</div>
+
+		<button type="submit" name="update" class="btn-submit">Enregistrer</button>
+
+	</form>
 </div>
-
-
-<?php include __DIR__ . '/../../includes/footer.php' ?>
+<script src="<?= BASE_URL; ?>/public/assets/js/util.js"></script>
+<?php include __DIR__ . '/../../includes/footer.php'; ?>
