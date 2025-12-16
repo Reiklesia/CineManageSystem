@@ -4,31 +4,13 @@
 -- Base de données : cinemanage_db
 -- Auteur : Équipe de développement initiale
 -- ===========================================================
--- Création de la base de données
+-- 1️⃣ Création de la base de données
 CREATE DATABASE IF NOT EXISTS cinemanage_db CHARACTER
 SET
     utf8mb4 COLLATE utf8mb4_general_ci;
 
 USE cinemanage_db;
 
--- Table : utilisateurs
-CREATE TABLE
-    IF NOT EXISTS utilisateurs (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        nom_utilisateur VARCHAR(50) NOT NULL UNIQUE,
-        mot_de_passe VARCHAR(255) NOT NULL,
-        role ENUM ('admin', 'user') NOT NULL DEFAULT 'user'
-    );
-
--- Insérer un administrateur et un utilisateur de test
-INSERT INTO
-    utilisateurs (nom_utilisateur, mot_de_passe, role)
-VALUES
-    ('admin', 'admin123', 'admin'),
-    ('user', 'user123', 'user');
-
--- mot de passe en clair (non sécurisé)
--- Table de migration
 CREATE TABLE
     migrations (
         id INT AUTO_INCREMENT PRIMARY KEY,
@@ -36,16 +18,30 @@ CREATE TABLE
         applied_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
     );
 
--- Table : films
+-- 2️⃣ Table : administrateurs
+CREATE TABLE
+    IF NOT EXISTS administrateurs (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        nom_utilisateur VARCHAR(50) NOT NULL,
+        mot_de_passe VARCHAR(255) NOT NULL
+    );
+
+-- Insérer un administrateur de test
+INSERT INTO
+    administrateurs (nom_utilisateur, mot_de_passe)
+VALUES
+    ('admin', 'admin123');
+
+-- ⚠️ mot de passe en clair (non sécurisé)
+-- 3️⃣ Table : films
 CREATE TABLE
     IF NOT EXISTS films (
         id INT AUTO_INCREMENT PRIMARY KEY,
         titre VARCHAR(100) NOT NULL,
         realisateur VARCHAR(100),
         genre VARCHAR(50),
-        annee_sortie VARCHAR(4),
-        description TEXT,
-        affiche VARCHAR(255)
+        annee_sortie INT,
+        description TEXT
     );
 
 -- Insérer quelques films de démonstration
@@ -87,47 +83,11 @@ VALUES
         'Une satire sociale racontant la rencontre entre deux familles issues de milieux opposés.'
     );
 
--- Table : salles
-CREATE TABLE
-    IF NOT EXISTS salles (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        nom VARCHAR(50) NOT NULL,
-        capacite INT NOT NULL,
-        statut ENUM ('disponible', 'indisponible') NOT NULL DEFAULT 'disponible'
-    );
-
--- Insérer quelques salles de démonstration
-INSERT INTO
-    salles (nom, capacite, statut)
-VALUES
-    ('Salle 1', 100, 'disponible'),
-    ('Salle 2', 150, 'disponible'),
-    ('Salle 3', 200, 'disponible');
-
--- Table : seances
-CREATE TABLE
-    IF NOT EXISTS seances (
-        id INT AUTO_INCREMENT PRIMARY KEY,
-        film_id INT NOT NULL,
-        salle_id INT NOT NULL,
-        date_heure DATETIME NOT NULL,
-        statut ENUM ('ouverte', 'complète', 'annulée') NOT NULL DEFAULT 'ouverte',
-        CONSTRAINT fk_seances_films FOREIGN KEY (film_id) REFERENCES films (id) ON DELETE RESTRICT ON UPDATE CASCADE,
-        CONSTRAINT fk_seances_salles FOREIGN KEY (salle_id) REFERENCES salles (id) ON DELETE RESTRICT ON UPDATE CASCADE
-    );
-
--- Insérer quelques séances de démonstration
-INSERT INTO
-    seances (film_id, salle_id, date_heure, statut)
-VALUES
-    (1, 1, '2025-12-10 19:30:00', 'ouverte'), -- Inception, Salle 1
-    (2, 2, '2025-12-10 20:00:00', 'complète'), -- The Godfather, Salle 2
-    (3, 3, '2025-12-11 19:00:00', 'ouverte'), -- Interstellar, Salle 3
-    (4, 1, '2025-12-11 21:00:00', 'complète'), -- Parasite, Salle 1
-    (1, 2, '2025-12-12 18:30:00', 'ouverte'), -- Inception, Salle 2
-    (2, 3, '2025-12-12 21:15:00', 'annulée');
-
--- The Godfather, Salle 3 (annulée)
+-- 4️⃣ Index et contraintes
+-- (aucune clé étrangère dans le système existant)
+-- (aucune normalisation appliquée)
+-- 5️⃣ Droits d’accès
+-- (aucune gestion d’utilisateurs SQL spécifique dans le système existant)
 -- ===========================================================
 -- Fin du script
 -- ===========================================================

@@ -62,8 +62,7 @@ function Logout()
     $_SESSION = [];
     session_destroy();
 
-
-    header("Location: index.php?action=list");
+    header("Location: index.php?action=accueil");
     exit;
 }
 

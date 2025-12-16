@@ -1,1 +1,2 @@
-DROP DATABASE IF EXISTS cinemanage_db;
+Alter TABLE utilisateurs
+RENAME TO administrateurs;
