@@ -233,3 +233,9 @@ function afficherAccueil()
         echo "<p>Films introuvables.</p>";
     }
 }
+
+// Jérémy
+function afficherContact()
+{
+    include __DIR__ . '/../app/views/contact_form.php';
+}
