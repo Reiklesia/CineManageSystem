@@ -13,6 +13,17 @@ function ListeFilmsComplete()
     }
 }
 
+// Amélie
+function ListeFilmsAvecAffiches()
+{
+	$result = getAllFilmsAvecAffiches();
+	if ($result) {
+		include __DIR__ . '/../views/filmList.php';
+   	} else {
+		echo "<p>Films introuvables.</p>";
+   	}
+}
+
 // David
 function FilmById($id)
 {
@@ -79,6 +90,7 @@ function editFilm()
     $genre = trim($_POST['genre'] ?? '');
     $anneeBrut = trim($_POST['annee_sortie'] ?? '');
     $description = trim($_POST['description'] ?? '');
+    $affiche = $_FILES['affiche']['name'] ?? null;
 
     $erreurs = [];
 
@@ -108,7 +120,8 @@ function editFilm()
             'realisateur' => $realisateur,
             'genre' => $genre,
             'annee_sortie' => $anneeBrut,
-            'description' => $description,
+            'description'  => $description,
+            'affiche'      => $affiche
         ];
 
         $_SESSION['flash'] = [
@@ -122,7 +135,7 @@ function editFilm()
 
     $annee = (int) $anneeBrut;
 
-    $result = modifierFilm($id, $titre, $realisateur, $genre, $annee, $description);
+    $result = modifierFilm($id, $titre, $realisateur, $genre, $annee, $description, $affiche);
 
     if ($result) {
         $_SESSION['flash'] = [
