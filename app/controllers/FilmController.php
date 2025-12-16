@@ -1,49 +1,54 @@
 <?php
 require_once __DIR__ . '/../models/FilmModel.php';
 
-// David
-function listeFilmsComplete()
+// David et Amélie
+function ListeFilmsComplete($contexte = 'public')
 {
-	$parPage = 10;
 
-	if (isset($_GET['page']) && ctype_digit($_GET['page']) && (int)$_GET['page'] > 0) {
-		$pageCourante = (int) $_GET['page'];
-	} else {
+	if ($contexte === 'admin') {
+		requireAdmin();
+
+		$parPage = 10;
+
 		$pageCourante = 1;
+		if (isset($_GET['page']) && ctype_digit($_GET['page']) && (int)$_GET['page'] > 0) {
+			$pageCourante = (int) $_GET['page'];
+		}
+
+		$totalFilms   = countAllFilms();
+		$pagesTotales = max(1, (int) ceil($totalFilms / $parPage));
+
+		if ($pageCourante > $pagesTotales) {
+			$pageCourante = $pagesTotales;
+		}
+
+		$offset = ($pageCourante - 1) * $parPage;
+
+		$allowedSorts = ['id', 'titre', 'realisateur', 'genre', 'annee_sortie', 'statut'];
+		$sort = $_GET['sort'] ?? 'id';
+		if (!in_array($sort, $allowedSorts, true)) {
+			$sort = 'id';
+		}
+
+		$dir = $_GET['dir'] ?? 'asc';
+		$dir = strtolower($dir) === 'desc' ? 'desc' : 'asc';
+
+		$film_result = getTousLesFilmsPagines($parPage, $offset, $sort, $dir);
+
+		include __DIR__ . '/../views/admin/dashboard.php';
+		return;
 	}
 
-	$totalFilms   = countAllFilms();
-	$pagesTotales = max(1, (int) ceil($totalFilms / $parPage));
-
-	if ($pageCourante > $pagesTotales) {
-		$pageCourante = $pagesTotales;
-	}
-
-	$offset = ($pageCourante - 1) * $parPage;
-
-	$allowedSorts = ['id', 'titre', 'realisateur', 'genre', 'annee_sortie', 'statut'];
-	$sort = $_GET['sort'] ?? 'id';
-	if (!in_array($sort, $allowedSorts, true)) {
-		$sort = 'id';
-	}
-
-	$dir = $_GET['dir'] ?? 'asc';
-	$dir = strtolower($dir) === 'desc' ? 'desc' : 'asc';
-
-	$film_result = getTousLesFilmsPagines($parPage, $offset, $sort, $dir);
-
-	include __DIR__ . '/../views/admin/dashboard.php';
-}
-
-// Amélie
-function ListeFilmsAvecAffiches()
-{
 	$result = getAllFilmsAvecAffiches();
-	if ($result) {
-		include __DIR__ . '/../views/filmList.php';
-	} else {
+
+	if (!$result) {
 		echo "<p>Films introuvables.</p>";
+		return;
 	}
+
+	$placeholderAffiche = BASE_URL . 'public/assets/affiches/placeholder-gris.jpg';
+
+	include __DIR__ . '/../views/filmList.php';
 }
 
 // David
@@ -60,14 +65,24 @@ function FilmById($id)
 // Jérémy
 function addFilm()
 {
+	$nomAffiche = 'placeholder-gris.jpg';
+
+	if (isset($_FILES['affiche']) && $_FILES['affiche']['error'] === UPLOAD_ERR_OK) {
+	}
+
 	if (isset($_POST['add'])) {
 		$titre = $_POST['titre'];
 		$realisateur = $_POST['realisateur'];
 		$genre = $_POST['genre'];
 		$annee = intval($_POST['annee_sortie']);
 		$description = $_POST['description'];
+		$affiche = $nomAffiche;
 
-		$result = ajoutFilm($titre, $realisateur, $genre, $annee, $description);
+		if (isset($_FILES['affiche']) && $_FILES['affiche']['error'] === UPLOAD_ERR_OK) {
+			$affiche = $_FILES['affiche']['name'];
+		}
+
+		$result = ajoutFilm($titre, $realisateur, $genre, $annee, $description, $affiche);
 		if ($result) {
 			$_SESSION['flash'] = [
 				'type' => 'success',

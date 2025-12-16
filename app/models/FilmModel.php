@@ -48,6 +48,43 @@ function getById($id)
 	return $result->fetch_assoc();
 }
 
+// Amelie
+function countAllFilms()
+{
+	global $conn;
+	$sql = "SELECT COUNT(*) AS total FROM films";
+	$result = $conn->query($sql);
+	if (!$result) return 0;
+	$row = $result->fetch_assoc();
+	return (int) ($row['total'] ?? 0);
+}
+
+// Amelie
+function getTousLesFilmsPagines(int $parPage, int $offset, string $sort, string $dir)
+{
+	global $conn;
+
+	$allowedSorts = ['id', 'titre', 'realisateur', 'genre', 'annee_sortie', 'statut'];
+	if (!in_array($sort, $allowedSorts, true)) {
+		$sort = 'id';
+	}
+
+	$dirSql = strtolower($dir) === 'desc' ? 'DESC' : 'ASC';
+
+	$sql = "
+        SELECT id, titre, realisateur, genre, annee_sortie, description, statut
+        FROM films
+        ORDER BY $sort $dirSql
+        LIMIT ? OFFSET ?
+    ";
+
+	$stmt = $conn->prepare($sql);
+	$stmt->bind_param('ii', $parPage, $offset);
+	$stmt->execute();
+
+	return $stmt->get_result();
+}
+
 // Jérémy
 function ajoutFilm($titre, $realisateur, $genre, $annee, $description, $affiche)
 {
