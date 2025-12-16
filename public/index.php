@@ -9,13 +9,17 @@ require_once __DIR__ . '/../app/controllers/AdminController.php';
 require_once __DIR__ . '/../app/helper/auth.php';
 
 
-$action = $_GET['action'] ?? 'list';
+$action = $_GET['action'] ?? 'accueil';
 
 switch ($action) {
 
 
     case 'accueil':
         afficherAccueil();
+        break;
+
+    case 'contact':
+        include __DIR__ . '/../app/views/contact_form.php';
         break;
 
     case 'list':
@@ -65,5 +69,3 @@ switch ($action) {
         echo "<p>Page introuvable.</p>";
         break;
 }
-
-?>
