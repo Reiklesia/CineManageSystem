@@ -13,66 +13,66 @@ $action = $_GET['action'] ?? 'accueil';
 
 switch ($action) {
 
-    case 'accueil':
-        afficherAccueil();
-        break;
+	case 'accueil':
+		afficherAccueil();
+		break;
 
-    case 'contact':
-        afficherContact();
-        break;
-    
-    case 'tarifs':
-        afficherTarifs();
-        break;
+	case 'contact':
+		afficherContact();
+		break;
 
-    case 'infolettre':
-        afficherInfolettre();
-        break;
+	case 'tarifs':
+		afficherTarifs();
+		break;
 
-    case 'list':
-        ListeFilmsComplete();
-        break;
+	case 'infolettre':
+		afficherInfolettre();
+		break;
 
-    case 'film':
-        if (isset($_GET['id'])) {
-            FilmById((int) $_GET['id']);
-        }
-        break;
+	case 'list':
+		ListeFilmsComplete('public');
+		break;
 
-    case 'connexion':
-        RouteAuthentification();
-        break;
+	case 'film':
+		if (isset($_GET['id'])) {
+			FilmById((int) $_GET['id']);
+		}
+		break;
 
-    case 'dashboard':
-        DashboardAdmin();
-        break;
+	case 'connexion':
+		RouteAuthentification();
+		break;
 
-    case 'logout':
-        Logout();
-        break;
+	case 'dashboard':
+		DashboardAdmin();
+		break;
 
-    case 'add_film':
-        addFilm();
-        break;
+	case 'logout':
+		Logout();
+		break;
 
-    case 'form_add_film':
-        afficherFormAjout();
-        break;
+	case 'add_film':
+		addFilm();
+		break;
 
-    case 'edit_film':
-        editFilm();
-        break;
+	case 'form_add_film':
+		afficherFormAjout();
+		break;
 
-    case 'form_edit_film':
-        afficherFormEdit();
-        break;
+	case 'edit_film':
+		editFilm();
+		break;
 
-    case 'delete_film':
-        deleteFilm();
-        break;
+	case 'form_edit_film':
+		afficherFormEdit();
+		break;
 
-    default:
-        http_response_code(404);
-        echo "<p>Page introuvable.</p>";
-        break;
+	case 'delete_film':
+		deleteFilm();
+		break;
+
+	default:
+		http_response_code(404);
+		echo "<p>Page introuvable.</p>";
+		break;
 }

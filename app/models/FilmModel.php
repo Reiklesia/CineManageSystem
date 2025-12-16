@@ -16,20 +16,6 @@ function getAllFilms()
 	return $result;
 }
 
-// Amélie
-function getAllFilmsAvecAffiches()
-{
-	global $conn;
-	$req = "SELECT * FROM films WHERE affiche IS NOT NULL AND affiche <> '' ORDER BY titre ASC";
-	$result = $conn->query($req);
-
-	if (!$result) {
-		die("Erreur de récupération des films avec affiches : " . $conn->error);
-	}
-
-	return $result;
-}
-
 // David
 function getById($id)
 {
@@ -64,7 +50,7 @@ function getTousLesFilmsPagines(int $parPage, int $offset, string $sort, string 
 {
 	global $conn;
 
-	$allowedSorts = ['id', 'titre', 'realisateur', 'genre', 'annee_sortie', 'statut'];
+	$allowedSorts = ['id', 'titre', 'realisateur', 'genre', 'annee_sortie', 'statut', 'affiche'];
 	if (!in_array($sort, $allowedSorts, true)) {
 		$sort = 'id';
 	}
@@ -72,11 +58,10 @@ function getTousLesFilmsPagines(int $parPage, int $offset, string $sort, string 
 	$dirSql = strtolower($dir) === 'desc' ? 'DESC' : 'ASC';
 
 	$sql = "
-        SELECT id, titre, realisateur, genre, annee_sortie, description, statut
-        FROM films
-        ORDER BY $sort $dirSql
-        LIMIT ? OFFSET ?
-    ";
+    SELECT id, titre, realisateur, genre, annee_sortie, description, statut, affiche
+    FROM films
+    ORDER BY $sort $dirSql
+    LIMIT ? OFFSET ?";
 
 	$stmt = $conn->prepare($sql);
 	$stmt->bind_param('ii', $parPage, $offset);

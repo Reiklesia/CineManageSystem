@@ -1,10 +1,7 @@
 <?php
 include __DIR__ . '/../includes/header.php';
 
-$fichierAffiche = trim($film['affiche'] ?? '');
-if ($fichierAffiche === '') {
-	$fichierAffiche = 'placeholder-gris.jpg';
-}
+$fichierAffiche = $film['affiche'];
 $srcAffiche = BASE_URL . '/public/assets/affiches/' . rawurlencode($fichierAffiche);
 ?>
 
@@ -18,22 +15,22 @@ $srcAffiche = BASE_URL . '/public/assets/affiches/' . rawurlencode($fichierAffic
 		<div class="film-poster">
 			<img
 				src="<?= htmlspecialchars($srcAffiche, ENT_QUOTES, 'UTF-8'); ?>"
-				alt="Affiche de <?= htmlspecialchars($film['titre'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+				alt="Affiche de <?= htmlspecialchars($film['titre'], ENT_QUOTES, 'UTF-8'); ?>">
 		</div>
 
 		<div class="film-info">
 			<h1 class="film-title">
-				<?= htmlspecialchars($film['titre'] ?? '', ENT_QUOTES, 'UTF-8'); ?>
+				<?= htmlspecialchars($film['titre'], ENT_QUOTES, 'UTF-8'); ?>
 			</h1>
 
 			<div class="film-meta">
-				<span><?= htmlspecialchars($film['annee_sortie'] ?? '', ENT_QUOTES, 'UTF-8'); ?></span>
+				<span><?= htmlspecialchars((string) $film['annee_sortie'], ENT_QUOTES, 'UTF-8'); ?></span>
 				<span class="dot">•</span>
-				<span><?= htmlspecialchars($film['genre'] ?? '', ENT_QUOTES, 'UTF-8'); ?></span>
+				<span><?= htmlspecialchars($film['genre'], ENT_QUOTES, 'UTF-8'); ?></span>
 			</div>
 
 			<p class="film-description">
-				<?= htmlspecialchars($film['description'] ?? '', ENT_QUOTES, 'UTF-8'); ?>
+				<?= htmlspecialchars($film['description'], ENT_QUOTES, 'UTF-8'); ?>
 			</p>
 
 			<a
@@ -54,7 +51,7 @@ $srcAffiche = BASE_URL . '/public/assets/affiches/' . rawurlencode($fichierAffic
 			<div class="film-extra">
 				<p>
 					<strong>Réalisateur :</strong>
-					<?= htmlspecialchars($film['realisateur'] ?? '', ENT_QUOTES, 'UTF-8'); ?>
+					<?= htmlspecialchars($film['realisateur'], ENT_QUOTES, 'UTF-8'); ?>
 				</p>
 			</div>
 		</div>

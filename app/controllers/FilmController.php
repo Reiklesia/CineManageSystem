@@ -1,42 +1,74 @@
 <?php
 require_once __DIR__ . '/../models/FilmModel.php';
+require_once __DIR__ . '/../helper/auth.php';
 
 // David et Amélie
 function ListeFilmsComplete($contexte = 'public')
 {
-
+	// =========================
+	// PARAMÈTRES PAR CONTEXTE
+	// =========================
 	if ($contexte === 'admin') {
 		requireAdmin();
-
 		$parPage = 10;
+		$actionPagination = 'dashboard';
+		$sortDefaut = 'id';
+	} else {
+		$parPage = 12;                // ajuste selon ta grille
+		$actionPagination = 'list';   // IMPORTANT: correspond à action=list
+		$sortDefaut = 'titre';
+	}
 
-		$pageCourante = 1;
-		if (isset($_GET['page']) && ctype_digit($_GET['page']) && (int)$_GET['page'] > 0) {
-			$pageCourante = (int) $_GET['page'];
-		}
+	// =========================
+	// PAGE COURANTE
+	// =========================
+	$pageCourante = 1;
+	if (isset($_GET['page']) && ctype_digit($_GET['page']) && (int) $_GET['page'] > 0) {
+		$pageCourante = (int) $_GET['page'];
+	}
 
-		$totalFilms   = countAllFilms();
-		$pagesTotales = max(1, (int) ceil($totalFilms / $parPage));
+	// =========================
+	// PAGINATION (TOTAL)
+	// =========================
+	$totalFilms   = countAllFilms();
+	$pagesTotales = max(1, (int) ceil($totalFilms / $parPage));
 
-		if ($pageCourante > $pagesTotales) {
-			$pageCourante = $pagesTotales;
-		}
+	if ($pageCourante > $pagesTotales) {
+		$pageCourante = $pagesTotales;
+	}
 
-		$offset = ($pageCourante - 1) * $parPage;
+	$offset = ($pageCourante - 1) * $parPage;
 
-		$allowedSorts = ['id', 'titre', 'realisateur', 'genre', 'annee_sortie', 'statut'];
-		$sort = $_GET['sort'] ?? 'id';
-		if (!in_array($sort, $allowedSorts, true)) {
-			$sort = 'id';
-		}
+	// =========================
+	// TRI
+	// =========================
+	$allowedSorts = ['id', 'titre', 'realisateur', 'genre', 'annee_sortie', 'statut', 'affiche'];
 
-		$dir = $_GET['dir'] ?? 'asc';
-		$dir = strtolower($dir) === 'desc' ? 'desc' : 'asc';
+	$sort = $_GET['sort'] ?? $sortDefaut;
+	if (!in_array($sort, $allowedSorts, true)) {
+		$sort = $sortDefaut;
+	}
 
-		$film_result = getTousLesFilmsPagines($parPage, $offset, $sort, $dir);
+	$dir = $_GET['dir'] ?? 'asc';
+	$dir = strtolower($dir) === 'desc' ? 'desc' : 'asc';
 
+	// =========================
+	// RÉCUPÉRATION DES FILMS (PAGINÉS)
+	// =========================
+	$result = getTousLesFilmsPagines($parPage, $offset, $sort, $dir);
+
+	if (!$result) {
+		echo "<p>Films introuvables.</p>";
+		return;
+	}
+
+	// =========================
+	// RENDU SELON CONTEXTE
+	// =========================
+	if ($contexte === 'admin') {
+		// On retourne les données pour que AdminController inclue la vue
 		return [
-			'film_result'  => $film_result,
+			'film_result'  => $result,
 			'pageCourante' => $pageCourante,
 			'pagesTotales' => $pagesTotales,
 			'sort'         => $sort,
@@ -44,15 +76,8 @@ function ListeFilmsComplete($contexte = 'public')
 		];
 	}
 
-	$result = getAllFilmsAvecAffiches();
-
-	if (!$result) {
-		echo "<p>Films introuvables.</p>";
-		return;
-	}
-
-	$placeholderAffiche = BASE_URL . 'public/assets/affiches/placeholder-gris.jpg';
-
+	// Public: ta vue filmList.php utilise $result + pagination
+	// (actionPagination est utile si tu veux l'utiliser dans la vue plus tard)
 	include __DIR__ . '/../views/filmList.php';
 }
 
@@ -276,11 +301,35 @@ function afficherFormEdit()
 	include __DIR__ . '/../views/admin/edit_film.php';
 }
 
-
 // Amélie
 function afficherAccueil()
 {
-	$result = getAllFilmsAvecAffiches();
+	$parPage = 12;
+
+	$pageCourante = 1;
+	if (isset($_GET['page']) && ctype_digit($_GET['page']) && (int) $_GET['page'] > 0) {
+		$pageCourante = (int) $_GET['page'];
+	}
+
+	$totalFilms   = countAllFilms();
+	$pagesTotales = max(1, (int) ceil($totalFilms / $parPage));
+
+	if ($pageCourante > $pagesTotales) {
+		$pageCourante = $pagesTotales;
+	}
+
+	$offset = ($pageCourante - 1) * $parPage;
+
+	$allowedSorts = ['id', 'titre', 'realisateur', 'genre', 'annee_sortie', 'statut', 'affiche'];
+	$sort = $_GET['sort'] ?? 'titre';
+	if (!in_array($sort, $allowedSorts, true)) {
+		$sort = 'titre';
+	}
+
+	$dir = $_GET['dir'] ?? 'asc';
+	$dir = strtolower($dir) === 'desc' ? 'desc' : 'asc';
+
+	$result = getTousLesFilmsPagines($parPage, $offset, $sort, $dir);
 
 	if ($result) {
 		include __DIR__ . '/../views/accueil.php';
@@ -302,4 +351,9 @@ function afficherTarifs()
 function afficherInfolettre()
 {
 	include __DIR__ . '/../views/infolettre.php';
+}
+
+function afficherListeFilmsComplete()
+{
+	ListeFilmsComplete('public');
 }

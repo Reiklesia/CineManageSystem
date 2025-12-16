@@ -51,6 +51,63 @@
 			<p>Aucun film trouvé.</p>
 		<?php endif; ?>
 	</div>
+	<?php
+	if (!isset($sort)) {
+		$sort = 'titre';
+	}
+	if (!isset($dir)) {
+		$dir = 'asc';
+	}
+	?>
+
+	<?php if (!empty($pagesTotales) && $pagesTotales > 1): ?>
+		<nav class="pagination">
+
+			<?php if ($pageCourante > 1): ?>
+				<a class="btn"
+					href="index.php?action=accueil&page=<?= (int)($pageCourante - 1); ?>&sort=<?= urlencode($sort); ?>&dir=<?= urlencode($dir); ?>">
+					← Précédent
+				</a>
+			<?php endif; ?>
+
+			<?php
+			$window = 2;
+			$start = max(1, $pageCourante - $window);
+			$end   = min($pagesTotales, $pageCourante + $window);
+
+			if ($start > 1) {
+				echo '<a class="btn" href="index.php?action=accueil&page=1&sort=' . urlencode($sort) . '&dir=' . urlencode($dir) . '">1</a>';
+				if ($start > 2) {
+					echo '<span class="page-info">…</span>';
+				}
+			}
+
+			for ($p = $start; $p <= $end; $p++) {
+				if ($p === (int)$pageCourante) {
+					echo '<span class="btn active">' . (int)$p . '</span>';
+				} else {
+					echo '<a class="btn" href="index.php?action=accueil&page=' . (int)$p . '&sort=' . urlencode($sort) . '&dir=' . urlencode($dir) . '">' . (int)$p . '</a>';
+				}
+			}
+
+			if ($end < $pagesTotales) {
+				if ($end < $pagesTotales - 1) {
+					echo '<span class="page-info">…</span>';
+				}
+				echo '<a class="btn" href="index.php?action=accueil&page=' . (int)$pagesTotales . '&sort=' . urlencode($sort) . '&dir=' . urlencode($dir) . '">' . (int)$pagesTotales . '</a>';
+			}
+			?>
+
+			<?php if ($pageCourante < $pagesTotales): ?>
+				<a class="btn"
+					href="index.php?action=accueil&page=<?= (int)($pageCourante + 1); ?>&sort=<?= urlencode($sort); ?>&dir=<?= urlencode($dir); ?>">
+					Suivant →
+				</a>
+			<?php endif; ?>
+
+		</nav>
+	<?php endif; ?>
+
 </main>
 
 <?php include __DIR__ . '/../includes/footer.php' ?>
