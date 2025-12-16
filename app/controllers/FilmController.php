@@ -35,8 +35,13 @@ function ListeFilmsComplete($contexte = 'public')
 
 		$film_result = getTousLesFilmsPagines($parPage, $offset, $sort, $dir);
 
-		include __DIR__ . '/../views/admin/dashboard.php';
-		return;
+		return [
+			'film_result'  => $film_result,
+			'pageCourante' => $pageCourante,
+			'pagesTotales' => $pagesTotales,
+			'sort'         => $sort,
+			'dir'          => $dir
+		];
 	}
 
 	$result = getAllFilmsAvecAffiches();

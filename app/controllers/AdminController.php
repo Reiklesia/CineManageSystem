@@ -1,19 +1,21 @@
 <?php
 
 require_once __DIR__ . "/../models/utilisateur/UtilisateurModel.php";
-require_once __DIR__ . '/../models/FilmModel.php';
+require_once __DIR__ . '/../controllers/FilmController.php';
 require_once __DIR__ . '/../helper/auth.php';
 
 // David
 function DashboardAdmin()
 {
+	requireAdmin();
 
-    requireAdmin();
+	$data = ListeFilmsComplete('admin');
 
-    $result = getAllFilms();
+	$film_result  = $data['film_result'];
+	$pageCourante = $data['pageCourante'];
+	$pagesTotales = $data['pagesTotales'];
+	$sort         = $data['sort'];
+	$dir          = $data['dir'];
 
-    include __DIR__ . '/../views/admin/dashboard.php';
+	include __DIR__ . '/../views/admin/dashboard.php';
 }
-
-
-?>
