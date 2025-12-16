@@ -237,5 +237,5 @@ function afficherAccueil()
 // Jérémy
 function afficherContact()
 {
-    include __DIR__ . '/../app/views/contact_form.php';
+    include __DIR__ . '/../views/contact_form.php';
 }
