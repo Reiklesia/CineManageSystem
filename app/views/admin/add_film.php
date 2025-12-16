@@ -1,9 +1,7 @@
 <?php include __DIR__ . '/../../includes/header.php' ?>
 
-<!-- <h2 class="add-film-title">Ajouter un film</h2> -->
-
 <div class="add-film-container">
-    
+
     <form method="POST" action="index.php?action=add_film" enctype="multipart/form-data" class="add-film-form">
 
         <div class="form-left">
@@ -13,21 +11,34 @@
 
             <div class="two-cols">
                 <label>Année de sortie
-                    <input type="date" name="annee_sortie" required>
+                    <input type="number" name="annee_sortie" required>
                 </label>
 
-                <label>Durée (minutes)
-                    <input type="number" name="duree" placeholder="75 minutes" required>
+                <label>Genre
+                    <select name="genre">
+                        <option value="">Genre...</option>
+                        <option>Action</option>
+                        <option>Drama</option>
+                        <option>Comédie</option>
+                        <option>Horreur</option>
+                        <option>Science-fiction</option>
+                        <option>Documentaire</option>
+                        <option>Animation</option>
+                        <option>Romance</option>
+                        <option>Thriller</option>
+                        <option>Aventure</option>
+                        <option>Fantastique</option>
+                        <option>Musical</option>
+                        <option>Biographie</option>
+                        <option>Guerre</option>
+                        <option>Policier</option>
+                        <option>Western</option>
+                    </select>
                 </label>
+
             </div>
-
-            <label>Genre
-                <select name="genre">
-                    <option value="">Genre...</option>
-                    <option>Action</option>
-                    <option>Drama</option>
-                    <option>Comédie</option>
-                </select>
+            <label>Réalisateur
+                <input type="text" name="realisateur" required>
             </label>
 
             <label>Synopsis

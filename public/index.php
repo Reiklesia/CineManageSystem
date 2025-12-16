@@ -9,13 +9,17 @@ require_once __DIR__ . '/../app/controllers/AdminController.php';
 require_once __DIR__ . '/../app/helper/auth.php';
 
 
-$action = $_GET['action'] ?? 'list';
+$action = $_GET['action'] ?? 'accueil';
 
 switch ($action) {
 
-	case 'accueil':
-		afficherAccueil();
-		break;
+    case 'accueil':
+        afficherAccueil();
+        break;
+
+    case 'contact':
+        afficherContact();
+        break;
 
     case 'list':
         ListeFilmsComplete();

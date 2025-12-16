@@ -72,12 +72,29 @@ function modifierFilm($id, $titre, $realisateur, $genre, $annee, $description, $
 // Amélie
 function supprimerFilm($id)
 {
-	global $conn;
-	$stmt = $conn->prepare("DELETE FROM films WHERE id = ?");
-	$stmt->bind_param("i", $id);
-	$result = $stmt->execute();
-	$stmt->close();
-	return $result;
+    global $conn;
+    $stmt = $conn->prepare("DELETE FROM films WHERE id = ?");
+    $stmt->bind_param("i", $id);
+    $result = $stmt->execute();
+    $stmt->close();
+    return $result;
+}
+
+
+
+// Amélie
+
+function getAllFilmsAvecAffiches()
+{
+    global $conn;
+    $req = "SELECT * FROM films WHERE affiche IS NOT NULL AND affiche <> '' ORDER BY titre ASC";
+    $result = $conn->query($req);
+
+    if (!$result) {
+        die("Erreur de récupération des films avec affiches : " . $conn->error);
+    }
+
+    return $result;
 }
 
 ?>

@@ -4,13 +4,13 @@ require_once __DIR__ . '/../models/FilmModel.php';
 // David
 function ListeFilmsComplete()
 {
-   $result = getAllFilms();
+    $result = getAllFilms();
 
-   if ($result) {
-      include __DIR__ . '/../views/filmList.php';
-   } else {
-      echo "<p>Films introuvables.</p>";
-   }
+    if ($result) {
+        include __DIR__ . '/../views/filmList.php';
+    } else {
+        echo "<p>Films introuvables.</p>";
+    }
 }
 
 // Amélie
@@ -27,41 +27,39 @@ function ListeFilmsAvecAffiches()
 // David
 function FilmById($id)
 {
-   $film = getById($id);
-   if ($film) {
-      include __DIR__ . '/../views/film.php';
-   } else {
-      echo "<p>Film introuvable.</p>";
-   }
+    $film = getById($id);
+    if ($film) {
+        include __DIR__ . '/../views/film.php';
+    } else {
+        echo "<p>Film introuvable.</p>";
+    }
 }
 
 // Jérémy
 function addFilm()
 {
-   if (isset($_POST['add'])) {
-      $titre = $_POST['titre'];
-      $realisateur = $_POST['realisateur'];
-      $genre = $_POST['genre'];
-      $annee = intval($_POST['annee_sortie']);
-      $description = $_POST['description'];
-      $affiche = $_FILES['affiche']['name'] ?? null;
+    if (isset($_POST['add'])) {
+        $titre = $_POST['titre'];
+        $realisateur = $_POST['realisateur'];
+        $genre = $_POST['genre'];
+        $annee = intval($_POST['annee_sortie']);
+        $description = $_POST['description'];
 
-
-      $result = ajoutFilm($titre, $realisateur, $genre, $annee, $description, $affiche);
-      if ($result) {
-         $_SESSION['flash'] = [
-            'type' => 'success',
-            'message' => 'Film ajouté avec succès.'
-         ];
-         header('Location: index.php?action=dashboard');
-         exit;
-      } else {
-         $_SESSION['flash'] = [
-            'type' => 'error',
-            'message' => "Impossible d'ajouter le film."
-         ];
-      }
-   }
+        $result = ajoutFilm($titre, $realisateur, $genre, $annee, $description);
+        if ($result) {
+            $_SESSION['flash'] = [
+                'type' => 'success',
+                'message' => 'Film ajouté avec succès.'
+            ];
+            header('Location: index.php?action=dashboard');
+            exit;
+        } else {
+            $_SESSION['flash'] = [
+                'type' => 'error',
+                'message' => "Impossible d'ajouter le film."
+            ];
+        }
+    }
 }
 
 // Amélie
@@ -87,10 +85,10 @@ function editFilm()
 
     $id = (int) $_GET['id'];
 
-    $titre       = trim($_POST['titre'] ?? '');
+    $titre = trim($_POST['titre'] ?? '');
     $realisateur = trim($_POST['realisateur'] ?? '');
-    $genre       = trim($_POST['genre'] ?? '');
-    $anneeBrut   = trim($_POST['annee_sortie'] ?? '');
+    $genre = trim($_POST['genre'] ?? '');
+    $anneeBrut = trim($_POST['annee_sortie'] ?? '');
     $description = trim($_POST['description'] ?? '');
     $affiche = $_FILES['affiche']['name'] ?? null;
 
@@ -110,7 +108,7 @@ function editFilm()
         $erreurs['annee_sortie'] = "L'année de sortie doit être un nombre.";
     } else {
         $annee = (int) $anneeBrut;
-        if ($annee < 1888 || $annee > (int)date('Y') + 1) {
+        if ($annee < 1888 || $annee > (int) date('Y') + 1) {
             $erreurs['annee_sortie'] = "L'année de sortie n'est pas valide.";
         }
     }
@@ -118,9 +116,9 @@ function editFilm()
     if (!empty($erreurs)) {
         $_SESSION['erreurs_form'] = $erreurs;
         $_SESSION['old_inputs'] = [
-            'titre'        => $titre,
-            'realisateur'  => $realisateur,
-            'genre'        => $genre,
+            'titre' => $titre,
+            'realisateur' => $realisateur,
+            'genre' => $genre,
             'annee_sortie' => $anneeBrut,
             'description'  => $description,
             'affiche'      => $affiche
@@ -135,7 +133,7 @@ function editFilm()
         exit;
     }
 
-    $annee = (int)$anneeBrut;
+    $annee = (int) $anneeBrut;
 
     $result = modifierFilm($id, $titre, $realisateur, $genre, $annee, $description, $affiche);
 
@@ -197,7 +195,7 @@ function deleteFilm()
 // David
 function afficherFormAjout()
 {
-   include __DIR__ . '/../views/admin/add_film.php';
+    include __DIR__ . '/../views/admin/add_film.php';
 }
 
 // Amélie
@@ -236,14 +234,21 @@ function afficherFormEdit()
     include __DIR__ . '/../views/admin/edit_film.php';
 }
 
+
 // Amélie
 function afficherAccueil()
 {
-	$result = getAllFilmsAvecAffiches();
+    $result = getAllFilmsAvecAffiches();
 
-	if ($result) {
-    	include __DIR__ . '/../views/accueil.php';
-   	} else {
-    	echo "<p>Films introuvables.</p>";
-   	}
+    if ($result) {
+        include __DIR__ . '/../views/accueil.php';
+    } else {
+        echo "<p>Films introuvables.</p>";
+    }
+}
+
+// Jérémy
+function afficherContact()
+{
+    include __DIR__ . '/../views/contact_form.php';
 }

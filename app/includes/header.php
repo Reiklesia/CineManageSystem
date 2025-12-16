@@ -14,7 +14,7 @@ if (session_status() === PHP_SESSION_NONE) {
 </head>
 
 <body>
-    <header class="main-header">
+    <header>
         <div class="left">
             <nav>
                 <a href="index.php?action=list">Consulter l'horaire</a>
@@ -43,12 +43,12 @@ if (session_status() === PHP_SESSION_NONE) {
                         Profil
                     </a>
                 <?php endif; ?>
-            <?php if (isset($_SESSION['login']) && (!isset($_GET['action']) || $_GET['action'] !== 'connexion')): ?>
-                <a class="btn-login" href="index.php?action=logout">
-                    Déconnexion
-                </a>
+                <?php if (isset($_SESSION['login']) && (!isset($_GET['action']) || $_GET['action'] !== 'connexion')): ?>
+                    <a class="btn-login" href="index.php?action=logout">
+                        Déconnexion
+                    </a>
                 <?php endif; ?>
-        <?php endif; ?>
+            <?php endif; ?>
         </div>
     </header>
 
