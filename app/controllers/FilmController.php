@@ -220,6 +220,15 @@ function deleteFilm()
 		exit;
 	}
 
+	if (filmEstLie($id)) {
+		$_SESSION['flash'] = [
+			'type' => 'error',
+			'message' => "Ce film ne peut pas être supprimé car il est lié à des séances."
+		];
+		header('Location: index.php?action=dashboard');
+		exit;
+	}
+
 	$result = supprimerFilm($id);
 
 	if ($result) {

@@ -133,3 +133,18 @@ function activerFilm($id)
 	$stmt->close();
 	return $result;
 }
+
+function filmEstLie(int $filmId): bool
+{
+	global $conn;
+
+	// Exemple avec la table seances (celle qui te bloque)
+	$stmt = $conn->prepare("SELECT 1 FROM seances WHERE film_id = ? LIMIT 1");
+	$stmt->bind_param("i", $filmId);
+	$stmt->execute();
+	$res = $stmt->get_result();
+	$estLie = ($res && $res->num_rows > 0);
+	$stmt->close();
+
+	return $estLie;
+}

@@ -37,11 +37,18 @@
 				</td>
 
 				<td>
-					<a href="index.php?action=delete_film&id=<?= (int) ($film['id'] ?? 0); ?>"
-						onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce film ?')">
-						Supprimer
-					</a>
+					<?php $idFilm = (int) ($film['id'] ?? 0); ?>
+
+					<?php if (!empty($nonSupprimables[$idFilm])): ?>
+						<span class="text-muted">Ce film ne peut pas être supprimé</span>
+					<?php else: ?>
+						<a href="index.php?action=delete_film&id=<?= $idFilm; ?>"
+							onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce film ?')">
+							Supprimer
+						</a>
+					<?php endif; ?>
 				</td>
+
 			</tr>
 		<?php endwhile; ?>
 	<?php else: ?>
