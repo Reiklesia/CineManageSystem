@@ -17,6 +17,10 @@ switch ($action) {
         afficherAccueil();
         break;
 
+    case 'contact':
+        afficherContact();
+        break;
+
     case 'list':
         ListeFilmsComplete();
         break;
