@@ -20,6 +20,14 @@ switch ($action) {
     case 'contact':
         afficherContact();
         break;
+    
+    case 'tarifs':
+        afficherTarifs();
+        break;
+
+    case 'infolettre':
+        afficherInfolettre();
+        break;
 
     case 'list':
         ListeFilmsComplete();

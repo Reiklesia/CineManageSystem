@@ -11,7 +11,6 @@ if (session_status() === PHP_SESSION_NONE) {
     <title>CinéGest</title>
 
     <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="public/assets/css/contact.css">
 </head>
 
 <body>

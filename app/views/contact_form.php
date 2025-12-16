@@ -9,7 +9,6 @@
 
     <div class="contact-content">
 
-        <!-- Infos -->
         <div class="contact-info">
             <h3>Coordonnées</h3>
 
@@ -18,7 +17,6 @@
             <p><strong>Adresse :</strong><br> Sherbrooke, QC, Canada</p>
         </div>
 
-        <!-- Formulaire -->
         <form class="contact-form" method="POST">
 
             <label>
