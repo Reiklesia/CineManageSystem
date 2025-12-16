@@ -75,6 +75,32 @@ switch ($action) {
 		toggleFilmStatut();
 		break;
 
+	case 'filtre_films_genre':
+		$genre = trim($_GET['genre'] ?? '');
+		filtrerFilmsParGenre($genre);
+		break;
+
+	case 'filtre_films_annee':
+		$annee = isset($_GET['annee']) ? (int) $_GET['annee'] : 0;
+		filtrerFilmsParAnnee($annee);
+		break;
+
+	case 'filtre_films_realisateur':
+		$realisateur = trim($_GET['realisateur'] ?? '');
+		filtrerFilmsParRealisateur($realisateur);
+		break;
+
+	case 'filtre_films_titre':
+		$titre = trim($_GET['titre'] ?? '');
+		filtrerFilmsParTitre($titre);
+		break;
+
+	case 'filtre_films_statut':
+		$statut = trim($_GET['statut'] ?? '');
+		filtrerFilmsParStatut($statut);
+		break;
+
+
 	default:
 		http_response_code(404);
 		echo "<p>Page introuvable.</p>";

@@ -399,3 +399,150 @@ function afficherListeFilmsComplete()
 {
 	ListeFilmsComplete('public');
 }
+
+function filtrerFilmsParGenre($genre)
+{
+	$film_result = getFilmsByGenre($genre);
+
+	$pageCourante = 1;
+	$pagesTotales = 1;
+	$sort = 'id';
+	$dir = 'asc';
+	$nonSupprimables = [];
+
+	if ($film_result && $film_result->num_rows > 0) {
+
+		$ids = [];
+		while ($row = $film_result->fetch_assoc()) {
+			$ids[] = (int)($row['id'] ?? 0);
+		}
+
+		$film_result->data_seek(0);
+
+		foreach ($ids as $id) {
+			if ($id > 0 && filmEstLie($id)) {
+				$nonSupprimables[$id] = true;
+			}
+		}
+	}
+	$isFiltre = true;
+	include __DIR__ . '/../views/admin/dashboard.php';
+}
+
+function filtrerFilmsParAnnee($annee)
+{
+	$annee = (int) $annee;
+	$film_result = ($annee > 0) ? getFilmsByAnnee($annee) : null;
+
+	$pageCourante = 1;
+	$pagesTotales = 1;
+	$sort = 'id';
+	$dir = 'asc';
+	$nonSupprimables = [];
+
+	if ($film_result && $film_result->num_rows > 0) {
+		$ids = [];
+		while ($row = $film_result->fetch_assoc()) {
+			$ids[] = (int)($row['id'] ?? 0);
+		}
+
+		$film_result->data_seek(0);
+
+		foreach ($ids as $id) {
+			if ($id > 0 && filmEstLie($id)) {
+				$nonSupprimables[$id] = true;
+			}
+		}
+	}
+	$isFiltre = true;
+	include __DIR__ . '/../views/admin/dashboard.php';
+}
+
+function filtrerFilmsParRealisateur($realisateur)
+{
+	$realisateur = trim((string)$realisateur);
+	$film_result = ($realisateur !== '') ? getFilmsByRealisateur($realisateur) : null;
+
+	$pageCourante = 1;
+	$pagesTotales = 1;
+	$sort = 'id';
+	$dir = 'asc';
+	$nonSupprimables = [];
+
+	if ($film_result && $film_result->num_rows > 0) {
+		$ids = [];
+		while ($row = $film_result->fetch_assoc()) {
+			$ids[] = (int)($row['id'] ?? 0);
+		}
+
+		$film_result->data_seek(0);
+
+		foreach ($ids as $id) {
+			if ($id > 0 && filmEstLie($id)) {
+				$nonSupprimables[$id] = true;
+			}
+		}
+	}
+	$isFiltre = true;
+	include __DIR__ . '/../views/admin/dashboard.php';
+}
+
+function filtrerFilmsParTitre($titre)
+{
+	$titre = trim((string)$titre);
+	$film_result = ($titre !== '') ? getFilmsByTitre($titre) : null;
+
+	$pageCourante = 1;
+	$pagesTotales = 1;
+	$sort = 'id';
+	$dir = 'asc';
+	$nonSupprimables = [];
+
+	if ($film_result && $film_result->num_rows > 0) {
+		$ids = [];
+		while ($row = $film_result->fetch_assoc()) {
+			$ids[] = (int)($row['id'] ?? 0);
+		}
+
+		$film_result->data_seek(0);
+
+		foreach ($ids as $id) {
+			if ($id > 0 && filmEstLie($id)) {
+				$nonSupprimables[$id] = true;
+			}
+		}
+	}
+	$isFiltre = true;
+	include __DIR__ . '/../views/admin/dashboard.php';
+}
+
+function filtrerFilmsParStatut($statut)
+{
+	$statut = trim((string)$statut);
+	$statut = ($statut === 'actif' || $statut === 'inactif') ? $statut : '';
+
+	$film_result = ($statut !== '') ? getFilmsByStatut($statut) : null;
+
+	$pageCourante = 1;
+	$pagesTotales = 1;
+	$sort = 'id';
+	$dir = 'asc';
+	$nonSupprimables = [];
+
+	if ($film_result && $film_result->num_rows > 0) {
+		$ids = [];
+		while ($row = $film_result->fetch_assoc()) {
+			$ids[] = (int)($row['id'] ?? 0);
+		}
+
+		$film_result->data_seek(0);
+
+		foreach ($ids as $id) {
+			if ($id > 0 && filmEstLie($id)) {
+				$nonSupprimables[$id] = true;
+			}
+		}
+	}
+	$isFiltre = true;
+	include __DIR__ . '/../views/admin/dashboard.php';
+}

@@ -138,7 +138,6 @@ function filmEstLie(int $filmId): bool
 {
 	global $conn;
 
-	// Exemple avec la table seances (celle qui te bloque)
 	$stmt = $conn->prepare("SELECT 1 FROM seances WHERE film_id = ? LIMIT 1");
 	$stmt->bind_param("i", $filmId);
 	$stmt->execute();
@@ -147,4 +146,51 @@ function filmEstLie(int $filmId): bool
 	$stmt->close();
 
 	return $estLie;
+}
+
+function getFilmsByGenre(string $genre)
+{
+	global $conn;
+	$stmt = $conn->prepare("SELECT * FROM films WHERE genre = ?");
+	$stmt->bind_param("s", $genre);
+	$stmt->execute();
+	return $stmt->get_result();
+}
+
+function getFilmsByAnnee(int $annee)
+{
+	global $conn;
+	$stmt = $conn->prepare("SELECT * FROM films WHERE annee_sortie = ?");
+	$stmt->bind_param("i", $annee);
+	$stmt->execute();
+	return $stmt->get_result();
+}
+
+function getFilmsByRealisateur(string $realisateur)
+{
+	global $conn;
+	$stmt = $conn->prepare("SELECT * FROM films WHERE realisateur LIKE ?");
+	$likeRealisateur = "%" . $realisateur . "%";
+	$stmt->bind_param("s", $likeRealisateur);
+	$stmt->execute();
+	return $stmt->get_result();
+}
+
+function getFilmsByTitre(string $titre)
+{
+	global $conn;
+	$stmt = $conn->prepare("SELECT * FROM films WHERE titre LIKE ?");
+	$likeTitre = "%" . $titre . "%";
+	$stmt->bind_param("s", $likeTitre);
+	$stmt->execute();
+	return $stmt->get_result();
+}
+
+function getFilmsByStatut(string $statut)
+{
+	global $conn;
+	$stmt = $conn->prepare("SELECT * FROM films WHERE statut = ?");
+	$stmt->bind_param("s", $statut);
+	$stmt->execute();
+	return $stmt->get_result();
 }

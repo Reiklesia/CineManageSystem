@@ -15,11 +15,12 @@ function DashboardAdmin()
 
 	if ($film_result) {
 		$ids = [];
+
 		while ($row = $film_result->fetch_assoc()) {
 			$ids[] = (int)($row['id'] ?? 0);
 		}
 
-		$film_result = getTousLesFilmsPagines(10, ($pageCourante - 1) * 10, $sort, $dir);
+		$film_result->data_seek(0);
 
 		foreach ($ids as $id) {
 			if ($id > 0 && filmEstLie($id)) {
@@ -27,6 +28,7 @@ function DashboardAdmin()
 			}
 		}
 	}
+
 
 	include __DIR__ . '/../views/admin/dashboard.php';
 }

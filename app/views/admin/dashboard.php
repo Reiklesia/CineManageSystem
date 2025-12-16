@@ -4,6 +4,9 @@
 <table>
 	<tr>
 		<th>Titre</th>
+		<th>Année de sortie</th>
+		<th>Genre</th>
+		<th>Réalisateur</th>
 		<th>Éditer</th>
 		<th>Statut</th>
 		<th>Supprimer</th>
@@ -14,8 +17,14 @@
 			<tr>
 				<td><?= htmlspecialchars($film['titre'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
 
+				<td><?= (int)($film['annee_sortie'] ?? 0); ?></td>
+
+				<td><?= htmlspecialchars($film['genre'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
+
+				<td><?= htmlspecialchars($film['realisateur'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
+
 				<td>
-					<a href="index.php?action=form_edit_film&id=<?= (int) ($film['id'] ?? 0); ?>">
+					<a class="btn-edit" href="index.php?action=form_edit_film&id=<?= (int)($film['id'] ?? 0); ?>">
 						Éditer
 					</a>
 				</td>
@@ -37,28 +46,27 @@
 				</td>
 
 				<td>
-					<?php $idFilm = (int) ($film['id'] ?? 0); ?>
+					<?php $idFilm = (int)($film['id'] ?? 0); ?>
 
 					<?php if (!empty($nonSupprimables[$idFilm])): ?>
 						<span class="text-muted">Ce film ne peut pas être supprimé</span>
 					<?php else: ?>
-						<a href="index.php?action=delete_film&id=<?= $idFilm; ?>"
+						<a class="btn-delete" href="index.php?action=delete_film&id=<?= $idFilm; ?>"
 							onclick="return confirm('Êtes-vous sûr de vouloir supprimer ce film ?')">
 							Supprimer
 						</a>
 					<?php endif; ?>
 				</td>
-
 			</tr>
 		<?php endwhile; ?>
 	<?php else: ?>
 		<tr>
-			<td colspan="3">Aucun film trouvé.</td>
+			<td colspan="7">Aucun film trouvé.</td>
 		</tr>
 	<?php endif; ?>
 </table>
 
-<?php if ($pagesTotales > 1): ?>
+<?php if (empty($isFiltre) && $pagesTotales > 1): ?>
 	<nav class="pagination">
 		<?php if ($pageCourante > 1): ?>
 			<a class="btn"
