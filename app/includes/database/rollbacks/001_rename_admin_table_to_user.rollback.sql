@@ -1,2 +1,1 @@
-Alter TABLE utilisateurs
-RENAME TO administrateurs;
+DROP TABLE IF EXISTS utilisateurs;
