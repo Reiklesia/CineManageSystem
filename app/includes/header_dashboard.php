@@ -1,24 +1,23 @@
 <nav class="admin-nav">
-	<a href="index.php?action=dashboard">Films</a> |
-	<a href="index.php?action=form_add_film">Ajouter un film</a>
+	<div class="nav-film">
+		<a href="index.php?action=dashboard">Gérer les films</a> |
+		<a href="index.php?action=form_add_film">Ajouter un film</a>
+	</div>
 </nav>
 
 <?php
-// Filtre affiché (UI)
 $filtre = $_GET['filtre'] ?? 'titre';
 $filtreValide = ['titre', 'realisateur', 'annee', 'statut', 'genre'];
 if (!in_array($filtre, $filtreValide, true)) {
 	$filtre = 'titre';
 }
 
-// Valeurs "sticky" pour les inputs
 $titre       = trim($_GET['titre'] ?? '');
 $realisateur = trim($_GET['realisateur'] ?? '');
 $annee       = isset($_GET['annee']) ? (int)$_GET['annee'] : '';
 $statut      = trim($_GET['statut'] ?? '');
 $genre       = trim($_GET['genre'] ?? '');
 
-// Mode filtre (pour bouton Effacer)
 $isModeFiltre = !empty($_GET['action']) && strpos($_GET['action'], 'filtre_films_') === 0;
 ?>
 
@@ -41,7 +40,6 @@ $isModeFiltre = !empty($_GET['action']) && strpos($_GET['action'], 'filtre_films
 		</div>
 	<?php endif; ?>
 
-	<!-- Titre -->
 	<form method="GET" action="index.php" class="admin-form-filtre" data-filtre="titre" style="<?= $filtre === 'titre' ? '' : 'display:none;'; ?>">
 		<input type="hidden" name="action" value="filtre_films_titre">
 		<input type="hidden" name="filtre" value="titre">
@@ -50,7 +48,6 @@ $isModeFiltre = !empty($_GET['action']) && strpos($_GET['action'], 'filtre_films
 		<button type="submit" class="btn-search">Rechercher</button>
 	</form>
 
-	<!-- Réalisateur -->
 	<form method="GET" action="index.php" class="admin-form-filtre" data-filtre="realisateur" style="<?= $filtre === 'realisateur' ? '' : 'display:none;'; ?>">
 		<input type="hidden" name="action" value="filtre_films_realisateur">
 		<input type="hidden" name="filtre" value="realisateur">
@@ -59,7 +56,6 @@ $isModeFiltre = !empty($_GET['action']) && strpos($_GET['action'], 'filtre_films
 		<button type="submit" class="btn-search">Rechercher</button>
 	</form>
 
-	<!-- Année -->
 	<form method="GET" action="index.php" class="admin-form-filtre" data-filtre="annee" style="<?= $filtre === 'annee' ? '' : 'display:none;'; ?>">
 		<input type="hidden" name="action" value="filtre_films_annee">
 		<input type="hidden" name="filtre" value="annee">
@@ -70,7 +66,6 @@ $isModeFiltre = !empty($_GET['action']) && strpos($_GET['action'], 'filtre_films
 		<button type="submit" class="btn-search">Rechercher</button>
 	</form>
 
-	<!-- Statut -->
 	<form method="GET" action="index.php" class="admin-form-filtre" data-filtre="statut" style="<?= $filtre === 'statut' ? '' : 'display:none;'; ?>">
 		<input type="hidden" name="action" value="filtre_films_statut">
 		<input type="hidden" name="filtre" value="statut">
@@ -83,7 +78,6 @@ $isModeFiltre = !empty($_GET['action']) && strpos($_GET['action'], 'filtre_films
 		<button type="submit" class="btn-search">Rechercher</button>
 	</form>
 
-	<!-- Genre -->
 	<form method="GET" action="index.php" class="admin-form-filtre" data-filtre="genre" style="<?= $filtre === 'genre' ? '' : 'display:none;'; ?>">
 		<input type="hidden" name="action" value="filtre_films_genre">
 		<input type="hidden" name="filtre" value="genre">
@@ -109,10 +103,7 @@ $isModeFiltre = !empty($_GET['action']) && strpos($_GET['action'], 'filtre_films
 				<option value="Western" <?= ($genre === 'Western') ? 'selected' : ''; ?>>Western</option>
 			</select>
 		</label>
-
 		<button type="submit" class="btn-search">Rechercher</button>
 	</form>
-
 </div>
-
 <script src="<?= rtrim(BASE_URL, '/'); ?>/public/assets/js/util.js"></script>

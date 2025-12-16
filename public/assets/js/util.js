@@ -82,7 +82,6 @@ function setupFiltreForms() {
   }
 
   showForm(select.value);
-
   select.addEventListener("change", () => showForm(select.value));
 }
 

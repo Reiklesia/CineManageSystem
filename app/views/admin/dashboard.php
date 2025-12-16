@@ -1,16 +1,31 @@
 <?php include __DIR__ . '/../../includes/header.php'; ?>
 <?php include __DIR__ . '/../../includes/header_dashboard.php'; ?>
+<?php
+function sortUrl(string $col, int $pageCourante, string $sort, string $dir): string
+{
+	$nextDir = ($sort === $col && $dir === 'asc') ? 'desc' : 'asc';
+
+	$params = $_GET;
+	$params['action'] = $params['action'] ?? 'dashboard';
+	$params['page']   = $pageCourante;
+	$params['sort']   = $col;
+	$params['dir']    = $nextDir;
+
+	return 'index.php?' . http_build_query($params);
+}
+?>
 
 <table>
-	<tr>
-		<th>Titre</th>
-		<th>Année de sortie</th>
-		<th>Genre</th>
-		<th>Réalisateur</th>
+	<thead>
+		<th><a href="<?= htmlspecialchars(sortUrl('titre', (int)$pageCourante, (string)$sort, (string)$dir), ENT_QUOTES, 'UTF-8') ?>">Titre</a></th>
+		<th><a href="<?= htmlspecialchars(sortUrl('annee_sortie', (int)$pageCourante, (string)$sort, (string)$dir), ENT_QUOTES, 'UTF-8') ?>">Année de sortie</a></th>
+		<th><a href="<?= htmlspecialchars(sortUrl('genre', (int)$pageCourante, (string)$sort, (string)$dir), ENT_QUOTES, 'UTF-8') ?>">Genre</a></th>
+		<th><a href="<?= htmlspecialchars(sortUrl('realisateur', (int)$pageCourante, (string)$sort, (string)$dir), ENT_QUOTES, 'UTF-8') ?>">Réalisateur</a></th>
 		<th>Éditer</th>
-		<th>Statut</th>
+		<th><a href="<?= htmlspecialchars(sortUrl('statut', (int)$pageCourante, (string)$sort, (string)$dir), ENT_QUOTES, 'UTF-8') ?>">Statut</a></th>
 		<th>Supprimer</th>
-	</tr>
+
+	</thead>
 
 	<?php if (isset($film_result) && $film_result && $film_result->num_rows > 0): ?>
 		<?php while ($film = $film_result->fetch_assoc()): ?>

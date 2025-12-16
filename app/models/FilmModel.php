@@ -64,6 +64,10 @@ function getTousLesFilmsPagines(int $parPage, int $offset, string $sort, string 
     LIMIT ? OFFSET ?";
 
 	$stmt = $conn->prepare($sql);
+	if (!$stmt) {
+		return false;
+	}
+
 	$stmt->bind_param('ii', $parPage, $offset);
 	$stmt->execute();
 
