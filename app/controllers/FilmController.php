@@ -5,31 +5,22 @@ require_once __DIR__ . '/../helper/auth.php';
 // David et Amélie
 function ListeFilmsComplete($contexte = 'public')
 {
-	// =========================
-	// PARAMÈTRES PAR CONTEXTE
-	// =========================
 	if ($contexte === 'admin') {
 		requireAdmin();
 		$parPage = 10;
 		$actionPagination = 'dashboard';
 		$sortDefaut = 'id';
 	} else {
-		$parPage = 12;                // ajuste selon ta grille
-		$actionPagination = 'list';   // IMPORTANT: correspond à action=list
+		$parPage = 12;
+		$actionPagination = 'list';
 		$sortDefaut = 'titre';
 	}
 
-	// =========================
-	// PAGE COURANTE
-	// =========================
 	$pageCourante = 1;
 	if (isset($_GET['page']) && ctype_digit($_GET['page']) && (int) $_GET['page'] > 0) {
 		$pageCourante = (int) $_GET['page'];
 	}
 
-	// =========================
-	// PAGINATION (TOTAL)
-	// =========================
 	$totalFilms   = countAllFilms();
 	$pagesTotales = max(1, (int) ceil($totalFilms / $parPage));
 
@@ -39,9 +30,6 @@ function ListeFilmsComplete($contexte = 'public')
 
 	$offset = ($pageCourante - 1) * $parPage;
 
-	// =========================
-	// TRI
-	// =========================
 	$allowedSorts = ['id', 'titre', 'realisateur', 'genre', 'annee_sortie', 'statut', 'affiche'];
 
 	$sort = $_GET['sort'] ?? $sortDefaut;
@@ -52,9 +40,6 @@ function ListeFilmsComplete($contexte = 'public')
 	$dir = $_GET['dir'] ?? 'asc';
 	$dir = strtolower($dir) === 'desc' ? 'desc' : 'asc';
 
-	// =========================
-	// RÉCUPÉRATION DES FILMS (PAGINÉS)
-	// =========================
 	$result = getTousLesFilmsPagines($parPage, $offset, $sort, $dir);
 
 	if (!$result) {
@@ -62,11 +47,7 @@ function ListeFilmsComplete($contexte = 'public')
 		return;
 	}
 
-	// =========================
-	// RENDU SELON CONTEXTE
-	// =========================
 	if ($contexte === 'admin') {
-		// On retourne les données pour que AdminController inclue la vue
 		return [
 			'film_result'  => $result,
 			'pageCourante' => $pageCourante,
@@ -76,8 +57,6 @@ function ListeFilmsComplete($contexte = 'public')
 		];
 	}
 
-	// Public: ta vue filmList.php utilise $result + pagination
-	// (actionPagination est utile si tu veux l'utiliser dans la vue plus tard)
 	include __DIR__ . '/../views/filmList.php';
 }
 
@@ -252,6 +231,60 @@ function deleteFilm()
 		$_SESSION['flash'] = [
 			'type' => 'error',
 			'message' => "Impossible de supprimer le film."
+		];
+	}
+
+	header('Location: index.php?action=dashboard');
+	exit;
+}
+
+function toggleFilmStatut()
+{
+	if (!isset($_GET['id']) || !ctype_digit($_GET['id'])) {
+		$_SESSION['flash'] = [
+			'type' => 'error',
+			'message' => 'Requête invalide.'
+		];
+		header('Location: index.php?action=dashboard');
+		exit;
+	}
+
+	$id = (int) $_GET['id'];
+	if ($id <= 0) {
+		$_SESSION['flash'] = [
+			'type' => 'error',
+			'message' => 'Identifiant de film invalide.'
+		];
+		header('Location: index.php?action=dashboard');
+		exit;
+	}
+
+	$result = getById($id);
+	if (!$result) {
+		$_SESSION['flash'] = [
+			'type' => 'error',
+			'message' => 'Film introuvable.'
+		];
+		header('Location: index.php?action=dashboard');
+		exit;
+	}
+
+	if ($result['statut'] === 'actif') {
+		desactiverFilm($id);
+		$_SESSION['flash'] = [
+			'type' => 'success',
+			'message' => 'Film désactivé avec succès.'
+		];
+	} else {
+		global $conn;
+		$stmt = $conn->prepare("UPDATE films SET statut = 'actif' WHERE id = ?");
+		$stmt->bind_param("i", $id);
+		$stmt->execute();
+		$stmt->close();
+
+		$_SESSION['flash'] = [
+			'type' => 'success',
+			'message' => 'Film activé avec succès.'
 		];
 	}
 

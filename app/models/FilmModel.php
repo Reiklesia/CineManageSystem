@@ -111,3 +111,25 @@ function supprimerFilm($id)
 	$stmt->close();
 	return $result;
 }
+
+// Amélie
+function desactiverFilm($id)
+{
+	global $conn;
+	$stmt = $conn->prepare("UPDATE films SET statut = 'inactif' WHERE id = ?");
+	$stmt->bind_param("i", $id);
+	$result = $stmt->execute();
+	$stmt->close();
+	return $result;
+}
+
+// Amélie
+function activerFilm($id)
+{
+	global $conn;
+	$stmt = $conn->prepare("UPDATE films SET statut = 'actif' WHERE id = ?");
+	$stmt->bind_param("i", $id);
+	$result = $stmt->execute();
+	$stmt->close();
+	return $result;
+}

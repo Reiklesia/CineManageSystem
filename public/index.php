@@ -71,6 +71,10 @@ switch ($action) {
 		deleteFilm();
 		break;
 
+	case 'toggle_film_statut':
+		toggleFilmStatut();
+		break;
+
 	default:
 		http_response_code(404);
 		echo "<p>Page introuvable.</p>";

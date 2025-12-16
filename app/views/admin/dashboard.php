@@ -5,6 +5,7 @@
 	<tr>
 		<th>Titre</th>
 		<th>Éditer</th>
+		<th>Statut</th>
 		<th>Supprimer</th>
 	</tr>
 
@@ -17,6 +18,22 @@
 					<a href="index.php?action=form_edit_film&id=<?= (int) ($film['id'] ?? 0); ?>">
 						Éditer
 					</a>
+				</td>
+
+				<td>
+					<?php
+					$statut = ($film['statut'] ?? 'inactif') === 'actif' ? 'actif' : 'inactif';
+					$labelStatut = $statut === 'actif' ? 'Actif' : 'Inactif';
+					$labelAction = $statut === 'actif' ? 'Désactiver' : 'Activer';
+					?>
+					<div class="statut-cell">
+						<div class="statut-label"><?= $labelStatut; ?></div>
+						<a class="statut-action"
+							href="index.php?action=toggle_film_statut&id=<?= (int)($film['id'] ?? 0); ?>&page=<?= (int)$pageCourante; ?>&sort=<?= urlencode($sort); ?>&dir=<?= urlencode($dir); ?>"
+							onclick="return confirm('Confirmer: <?= $labelAction; ?> ce film ?');">
+							<?= $labelAction; ?>
+						</a>
+					</div>
 				</td>
 
 				<td>
