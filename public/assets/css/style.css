@@ -68,7 +68,7 @@ header .center {
 	justify-content: center;
 }
 
-header h1 {
+header h1 a {
 	margin: 0;
 	font-size: 2.2rem;
 	font-family: "Poppins", sans-serif;
@@ -99,6 +99,27 @@ header .right {
 }
 
 .btn-login:hover {
+	background-color: #fb8c00;
+	transform: translateY(-1px);
+}
+
+.btn-search {
+	background-color: #ffa726;
+	color: #ffffff !important;
+	padding: 10px 18px;
+	border-radius: 10px;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 0.95rem;
+	border: none;
+	cursor: pointer;
+	transition: background-color 0.2s ease, transform 0.1s ease;
+	display: inline-block;
+	bottom: -1em;
+	position: relative;
+}
+
+.btn-search:hover {
 	background-color: #fb8c00;
 	transform: translateY(-1px);
 }
@@ -206,7 +227,7 @@ p {
 
 table {
     width: 100%;
-    border-collapse: separate;   /* important pour border-radius */
+    border-collapse: separate;
     border-spacing: 0;
     margin: 25px auto;
     max-width: 1100px;
@@ -218,7 +239,6 @@ table {
     box-shadow: 0 8px 25px rgba(0,0,0,0.08);
 }
 
-/* Enlève le border HTML (ton border="1") visuellement */
 table, th, td {
     border: none;
 }
@@ -244,7 +264,7 @@ tr {
 }
 
 tr + tr td {
-    border-top: 1px solid #eeeeee; /* séparateur doux */
+    border-top: 1px solid #eeeeee;
 }
 
 tr:nth-child(even) {
@@ -252,7 +272,7 @@ tr:nth-child(even) {
 }
 
 tr:hover {
-    background: rgba(255, 167, 38, 0.10); /* Orange Popcorn léger */
+    background: rgba(255, 167, 38, 0.10);
 }
 
 /* Colonne titre */
@@ -284,27 +304,27 @@ td a {
 }
 
 /* Bouton Éditer */
-td:nth-child(2) a {
-    background: rgba(26, 35, 126, 0.10);
-    color: #1A237E;
-    border-color: rgba(26, 35, 126, 0.20);
+.btn-edit{
+  background: rgba(26, 35, 126, 0.10);
+  color: #1A237E;
+  border-color: rgba(26, 35, 126, 0.20);
 }
 
-td:nth-child(2) a:hover {
-    background: rgba(26, 35, 126, 0.16);
-    transform: translateY(-1px);
+.btn-edit:hover{
+  background: rgba(26, 35, 126, 0.16);
+  transform: translateY(-1px);
 }
 
 /* Bouton Supprimer */
-td:nth-child(3) a {
-    background: rgba(231, 76, 60, 0.10);
-    color: #E74C3C;
-    border-color: rgba(231, 76, 60, 0.18);
+.btn-delete{
+  background: rgba(231, 76, 60, 0.10);
+  color: #E74C3C;
+  border-color: rgba(231, 76, 60, 0.18);
 }
 
-td:nth-child(3) a:hover {
-    background: rgba(231, 76, 60, 0.16);
-    transform: translateY(-1px);
+.btn-delete:hover{
+  background: rgba(231, 76, 60, 0.16);
+  transform: translateY(-1px);
 }
 
 /* ========== FORMULAIRES ========== */
@@ -1263,7 +1283,7 @@ a:hover {
         flex-wrap: wrap;
     }
 
-    header h1 {
+    header h1 a {
         font-size: 1.6rem;
     }
 

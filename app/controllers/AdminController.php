@@ -1,19 +1,34 @@
 <?php
-
-require_once __DIR__ . "/../models/utilisateur/UtilisateurModel.php";
-require_once __DIR__ . '/../models/FilmModel.php';
-require_once __DIR__ . '/../helper/auth.php';
+require_once __DIR__ . '/../controllers/FilmController.php';
 
 // David
 function DashboardAdmin()
 {
+	$data = ListeFilmsComplete('admin');
 
-    requireAdmin();
+	$film_result  = $data['film_result'];
+	$pageCourante = $data['pageCourante'];
+	$pagesTotales = $data['pagesTotales'];
+	$sort         = $data['sort'];
+	$dir          = $data['dir'];
+	$nonSupprimables = [];
 
-    $result = getAllFilms();
+	if ($film_result) {
+		$ids = [];
 
-    include __DIR__ . '/../views/admin/dashboard.php';
+		while ($row = $film_result->fetch_assoc()) {
+			$ids[] = (int)($row['id'] ?? 0);
+		}
+
+		$film_result->data_seek(0);
+
+		foreach ($ids as $id) {
+			if ($id > 0 && filmEstLie($id)) {
+				$nonSupprimables[$id] = true;
+			}
+		}
+	}
+
+
+	include __DIR__ . '/../views/admin/dashboard.php';
 }
-
-
-?>
