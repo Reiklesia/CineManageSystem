@@ -9,17 +9,14 @@
 
     <div class="contact-content">
 
-        <!-- Infos -->
         <div class="contact-info">
             <h3>Coordonnées</h3>
 
             <p><strong>Email :</strong><br> contact@cinegest.ca</p>
             <p><strong>Téléphone :</strong><br> +1 (555) 123-4567</p>
             <p><strong>Adresse :</strong><br> Sherbrooke, QC, Canada</p>
-
         </div>
 
-        <!-- Formulaire -->
         <form class="contact-form" method="POST">
 
             <label>

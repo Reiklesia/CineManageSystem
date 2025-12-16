@@ -3,7 +3,7 @@
 
 <div class="add-film-container">
 
-    <form method="POST" action="index.php?action=add_film" enctype="multipart/form-data" class="add-film-form">
+    <form method="POST" action="index.php?action=edit_film" enctype="multipart/form-data" class="add-film-form">
 
         <div class="form-left">
             <label>Titre du film
@@ -91,7 +91,8 @@
             </label>
         </div>
 
-        <button type="submit" name="add" class="btn-submit">Ajouter</button>
+        <button type="submit" name="update" class="btn-submit">Enregistrer</button>
+        </button>
 
     </form>
 </div>

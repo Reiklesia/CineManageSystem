@@ -252,3 +252,12 @@ function afficherContact()
 {
     include __DIR__ . '/../views/contact_form.php';
 }
+
+function afficherTarifs()
+{
+    include __DIR__ . '/../views/tarifs.php';
+}
+function afficherInfolettre()
+{
+    include __DIR__ . '/../views/infolettre.php';
+}

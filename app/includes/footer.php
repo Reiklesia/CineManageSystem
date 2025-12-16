@@ -8,7 +8,7 @@
 
         <div class="footer-links">
             <a href="index.php?action=contact">Nous contacter</a>
-            <a href="index.php?action=afficherFormInfolettre">S’inscrire à l’infolettre</a>
+            <a href="index.php?action=infolettre">S’inscrire à l’infolettre</a>
             <?php if (!isset($_GET['action']) || $_GET['action'] !== 'accueil'): ?>
                 <a href="index.php?action=accueil">Retourner à l'accueil</a>
             <?php endif; ?>
