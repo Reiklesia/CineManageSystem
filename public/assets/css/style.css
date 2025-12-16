@@ -989,7 +989,7 @@ a:hover {
 /* ===== TARIFS ===== */
 .tarifs {
     max-width: 1100px;
-    margin: 1em;
+    margin: 4em auto;
     padding: 0 20px;
 }
 
@@ -1142,7 +1142,7 @@ a:hover {
 /* ===== NEWSLETTER ===== */
 .newsletter {
     max-width: 900px;
-    margin: 1em;
+    margin: 4em auto;
     padding: 0 20px;
 }
 
