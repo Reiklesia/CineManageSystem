@@ -223,6 +223,12 @@ p {
     margin-bottom: 10px;
 }
 
+.pagination {
+    display: flex;
+    justify-content: center;
+    margin: 20px 0;
+}
+
 /* ========== TABLES ========== */
 
 table {
