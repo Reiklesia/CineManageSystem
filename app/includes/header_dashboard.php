@@ -1,7 +1,11 @@
 <nav class="admin-nav">
 	<div class="nav-film">
-		<a href="index.php?action=dashboard">Gérer les films</a> |
+		<a href="index.php?action=dashboard_films">Gérer les films</a> |
 		<a href="index.php?action=form_add_film">Ajouter un film</a>
+	</div>
+	<div class="nav-user">
+		<a href="index.php?action=dashboard_users">Gérer les utilisateurs</a> |
+		<a href="index.php?action=form_add_user">Ajouter un utilisateur</a>
 	</div>
 </nav>
 
@@ -36,7 +40,7 @@ $isModeFiltre = !empty($_GET['action']) && strpos($_GET['action'], 'filtre_films
 
 	<?php if ($isModeFiltre): ?>
 		<div class="admin-reset-filtre">
-			<a href="index.php?action=dashboard" class="btn-search">Effacer les filtres</a>
+			<a href="index.php?action=dashboard_films" class="btn-search">Effacer les filtres</a>
 		</div>
 	<?php endif; ?>
 

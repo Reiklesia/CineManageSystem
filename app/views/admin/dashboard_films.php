@@ -6,7 +6,7 @@ function sortUrl(string $col, int $pageCourante, string $sort, string $dir): str
 	$nextDir = ($sort === $col && $dir === 'asc') ? 'desc' : 'asc';
 
 	$params = $_GET;
-	$params['action'] = $params['action'] ?? 'dashboard';
+	$params['action'] = $params['action'] ?? 'dashboard_films';
 	$params['page']   = $pageCourante;
 	$params['sort']   = $col;
 	$params['dir']    = $nextDir;
@@ -85,7 +85,7 @@ function sortUrl(string $col, int $pageCourante, string $sort, string $dir): str
 	<nav class="pagination">
 		<?php if ($pageCourante > 1): ?>
 			<a class="btn"
-				href="index.php?action=dashboard&page=<?= (int) ($pageCourante - 1); ?>&sort=<?= urlencode($sort); ?>&dir=<?= urlencode($dir); ?>">
+				href="index.php?action=dashboard_films&page=<?= (int) ($pageCourante - 1); ?>&sort=<?= urlencode($sort); ?>&dir=<?= urlencode($dir); ?>">
 				← Précédent
 			</a>
 		<?php endif; ?>
@@ -97,7 +97,7 @@ function sortUrl(string $col, int $pageCourante, string $sort, string $dir): str
 
 		if ($start > 1) {
 		?>
-			<a class="btn" href="index.php?action=dashboard&page=1&sort=<?= urlencode($sort); ?>&dir=<?= urlencode($dir); ?>">1</a>
+			<a class="btn" href="index.php?action=dashboard_films&page=1&sort=<?= urlencode($sort); ?>&dir=<?= urlencode($dir); ?>">1</a>
 			<?php
 			if ($start > 2) {
 				echo '<span class="page-info">…</span>';
@@ -108,7 +108,7 @@ function sortUrl(string $col, int $pageCourante, string $sort, string $dir): str
 			if ($p === (int)$pageCourante) {
 				echo '<span class="btn active">' . (int)$p . '</span>';
 			} else {
-				echo '<a class="btn" href="index.php?action=dashboard&page=' . (int)$p . '&sort=' . urlencode($sort) . '&dir=' . urlencode($dir) . '">' . (int)$p . '</a>';
+				echo '<a class="btn" href="index.php?action=dashboard_films&page=' . (int)$p . '&sort=' . urlencode($sort) . '&dir=' . urlencode($dir) . '">' . (int)$p . '</a>';
 			}
 		}
 
@@ -117,7 +117,7 @@ function sortUrl(string $col, int $pageCourante, string $sort, string $dir): str
 				echo '<span class="page-info">…</span>';
 			}
 			?>
-			<a class="btn" href="index.php?action=dashboard&page=<?= (int)$pagesTotales; ?>&sort=<?= urlencode($sort); ?>&dir=<?= urlencode($dir); ?>">
+			<a class="btn" href="index.php?action=dashboard_films&page=<?= (int)$pagesTotales; ?>&sort=<?= urlencode($sort); ?>&dir=<?= urlencode($dir); ?>">
 				<?= (int)$pagesTotales; ?>
 			</a>
 		<?php
@@ -126,7 +126,7 @@ function sortUrl(string $col, int $pageCourante, string $sort, string $dir): str
 
 		<?php if ($pageCourante < $pagesTotales): ?>
 			<a class="btn"
-				href="index.php?action=dashboard&page=<?= (int) ($pageCourante + 1); ?>&sort=<?= urlencode($sort); ?>&dir=<?= urlencode($dir); ?>">
+				href="index.php?action=dashboard_films&page=<?= (int) ($pageCourante + 1); ?>&sort=<?= urlencode($sort); ?>&dir=<?= urlencode($dir); ?>">
 				Suivant →
 			</a>
 		<?php endif; ?>

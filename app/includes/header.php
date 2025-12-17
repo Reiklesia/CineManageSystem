@@ -35,7 +35,7 @@ if (session_status() === PHP_SESSION_NONE) {
 
 			<?php else: ?>
 				<?php if (isAdmin()): ?>
-					<a class="btn-login" href="index.php?action=dashboard">
+					<a class="btn-login" href="index.php?action=dashboard_films">
 						Tableau de bord
 					</a>
 				<?php elseif (isUser()): ?>
