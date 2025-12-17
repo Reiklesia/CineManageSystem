@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../controllers/FilmController.php';
 
 // David
-function DashboardAdmin()
+function DashboardAdminFilms()
 {
 	$data = ListeFilmsComplete('admin');
 
@@ -28,7 +28,43 @@ function DashboardAdmin()
 			}
 		}
 	}
+	include __DIR__ . '/../views/admin/dashboard_films.php';
+}
 
+// David
+function DashboardAdminUsers()
+{
+	requireAdmin();
 
-	include __DIR__ . '/../views/admin/dashboard.php';
+	$parPage = 10;
+	$actionPagination = 'dashboard_users';
+	$sortDefaut = 'id';
+
+	$pageCourante = 1;
+	if (isset($_GET['page']) && ctype_digit($_GET['page']) && (int)$_GET['page'] > 0) {
+		$pageCourante = (int)$_GET['page'];
+	}
+
+	$totalUsers   = countAllUtilisateurs();
+	$pagesTotales = max(1, (int)ceil($totalUsers / $parPage));
+
+	if ($pageCourante > $pagesTotales) {
+		$pageCourante = $pagesTotales;
+	}
+
+	$offset = ($pageCourante - 1) * $parPage;
+
+	$allowedSorts = ['id', 'nom_utilisateur', 'role'];
+
+	$sort = $_GET['sort'] ?? $sortDefaut;
+	if (!in_array($sort, $allowedSorts, true)) {
+		$sort = $sortDefaut;
+	}
+
+	$dir = $_GET['dir'] ?? 'asc';
+	$dir = strtolower($dir) === 'desc' ? 'desc' : 'asc';
+
+	$user_result = getTousLesUtilisateursPagines($parPage, $offset, $sort, $dir);
+
+	include __DIR__ . '/../views/admin/dashboard_users.php';
 }

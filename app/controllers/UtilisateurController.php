@@ -8,7 +8,7 @@ function RouteAuthentification()
 
 	if (isset($_SESSION["login"])) {
 		if (isAdmin()) {
-			header("Location: index.php?action=dashboard");
+			header("Location: index.php?action=dashboard_users");
 			exit;
 		} else {
 			header("Location: index.php?action=list");
@@ -30,7 +30,7 @@ function RouteAuthentification()
 			];
 
 			if (isAdmin()) {
-				header("Location: index.php?action=dashboard");
+				header("Location: index.php?action=dashboard_users");
 				exit;
 			} else {
 				header("Location: index.php?action=list");
@@ -56,10 +56,54 @@ function Logout()
 		session_start();
 	}
 
-
 	$_SESSION = [];
 	session_destroy();
 
 	header("Location: index.php?action=accueil");
 	exit;
+}
+
+function AjouterUtilisateur()
+{
+	requireAdmin();
+
+	if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !isset($_POST['add_user'])) {
+		include __DIR__ . '/../views/admin/add_user.php';
+		return;
+	}
+
+	$nomUtilisateur = trim($_POST['nom_utilisateur'] ?? '');
+	$motDePasse     = (string)($_POST['mot_de_passe'] ?? '');
+	$role           = trim($_POST['role'] ?? 'user');
+
+	$rolesPermis = ['admin', 'user'];
+	if (!in_array($role, $rolesPermis, true)) {
+		$role = 'user';
+	}
+
+	if ($nomUtilisateur === '' || $motDePasse === '') {
+		$_SESSION['flash'] = [
+			'type' => 'error',
+			'message' => 'Nom d’utilisateur et mot de passe sont obligatoires.'
+		];
+		include __DIR__ . '/../views/admin/add_user.php';
+		return;
+	}
+
+	$ok = addUser($nomUtilisateur, $motDePasse, $role);
+
+	if ($ok) {
+		$_SESSION['flash'] = [
+			'type' => 'success',
+			'message' => 'Utilisateur ajouté avec succès.'
+		];
+		header('Location: index.php?action=liste_utilisateurs');
+		exit;
+	}
+
+	$_SESSION['flash'] = [
+		'type' => 'error',
+		'message' => "Impossible d'ajouter l’utilisateur (nom déjà utilisé?)."
+	];
+	include __DIR__ . '/../views/admin/add_user.php';
 }

@@ -8,7 +8,7 @@ function ListeFilmsComplete($contexte = 'public')
 	if ($contexte === 'admin') {
 		requireAdmin();
 		$parPage = 10;
-		$actionPagination = 'dashboard';
+		$actionPagination = 'dashboard_films';
 		$sortDefaut = 'id';
 	} else {
 		$parPage = 12;
@@ -97,7 +97,7 @@ function addFilm()
 				'type' => 'success',
 				'message' => 'Film ajouté avec succès.'
 			];
-			header('Location: index.php?action=dashboard');
+			header('Location: index.php?action=dashboard_films');
 			exit;
 		} else {
 			$_SESSION['flash'] = [
@@ -116,7 +116,7 @@ function editFilm()
 			'type' => 'error',
 			'message' => 'Requête invalide.'
 		];
-		header('Location: index.php?action=dashboard');
+		header('Location: index.php?action=dashboard_films');
 		exit;
 	}
 
@@ -125,7 +125,7 @@ function editFilm()
 			'type' => 'error',
 			'message' => 'Identifiant de film invalide.'
 		];
-		header('Location: index.php?action=dashboard');
+		header('Location: index.php?action=dashboard_films');
 		exit;
 	}
 
@@ -188,7 +188,7 @@ function editFilm()
 			'type' => 'success',
 			'message' => 'Film modifié avec succès.'
 		];
-		header('Location: index.php?action=dashboard');
+		header('Location: index.php?action=dashboard_films');
 		exit;
 	} else {
 		$_SESSION['flash'] = [
@@ -206,7 +206,7 @@ function deleteFilm()
 			'type' => 'error',
 			'message' => 'Requête invalide.'
 		];
-		header('Location: index.php?action=dashboard');
+		header('Location: index.php?action=dashboard_films');
 		exit;
 	}
 
@@ -216,7 +216,7 @@ function deleteFilm()
 			'type' => 'error',
 			'message' => 'Identifiant de film invalide.'
 		];
-		header('Location: index.php?action=dashboard');
+		header('Location: index.php?action=dashboard_films');
 		exit;
 	}
 
@@ -225,7 +225,7 @@ function deleteFilm()
 			'type' => 'error',
 			'message' => "Ce film ne peut pas être supprimé car il est lié à des séances."
 		];
-		header('Location: index.php?action=dashboard');
+		header('Location: index.php?action=dashboard_films');
 		exit;
 	}
 
@@ -243,7 +243,7 @@ function deleteFilm()
 		];
 	}
 
-	header('Location: index.php?action=dashboard');
+	header('Location: index.php?action=dashboard_films');
 	exit;
 }
 
@@ -254,7 +254,7 @@ function toggleFilmStatut()
 			'type' => 'error',
 			'message' => 'Requête invalide.'
 		];
-		header('Location: index.php?action=dashboard');
+		header('Location: index.php?action=dashboard_films');
 		exit;
 	}
 
@@ -264,7 +264,7 @@ function toggleFilmStatut()
 			'type' => 'error',
 			'message' => 'Identifiant de film invalide.'
 		];
-		header('Location: index.php?action=dashboard');
+		header('Location: index.php?action=dashboard_films');
 		exit;
 	}
 
@@ -274,7 +274,7 @@ function toggleFilmStatut()
 			'type' => 'error',
 			'message' => 'Film introuvable.'
 		];
-		header('Location: index.php?action=dashboard');
+		header('Location: index.php?action=dashboard_films');
 		exit;
 	}
 
@@ -297,7 +297,7 @@ function toggleFilmStatut()
 		];
 	}
 
-	header('Location: index.php?action=dashboard');
+	header('Location: index.php?action=dashboard_films');
 	exit;
 }
 
@@ -315,7 +315,7 @@ function afficherFormEdit()
 			'type' => 'error',
 			'message' => 'Film introuvable.'
 		];
-		header('Location: index.php?action=dashboard');
+		header('Location: index.php?action=dashboard_films');
 		exit;
 	}
 
@@ -325,7 +325,7 @@ function afficherFormEdit()
 			'type' => 'error',
 			'message' => 'Film introuvable.'
 		];
-		header('Location: index.php?action=dashboard');
+		header('Location: index.php?action=dashboard_films');
 		exit;
 	}
 
@@ -336,7 +336,7 @@ function afficherFormEdit()
 			'type' => 'error',
 			'message' => 'Film introuvable.'
 		];
-		header('Location: index.php?action=dashboard');
+		header('Location: index.php?action=dashboard_films');
 		exit;
 	}
 
@@ -426,7 +426,7 @@ function filtrerFilmsParGenre($genre)
 		}
 	}
 	$isFiltre = true;
-	include __DIR__ . '/../views/admin/dashboard.php';
+	include __DIR__ . '/../views/admin/dashboard_films.php';
 }
 
 function filtrerFilmsParAnnee($annee)
@@ -455,7 +455,7 @@ function filtrerFilmsParAnnee($annee)
 		}
 	}
 	$isFiltre = true;
-	include __DIR__ . '/../views/admin/dashboard.php';
+	include __DIR__ . '/../views/admin/dashboard_films.php';
 }
 
 function filtrerFilmsParRealisateur($realisateur)
@@ -484,7 +484,7 @@ function filtrerFilmsParRealisateur($realisateur)
 		}
 	}
 	$isFiltre = true;
-	include __DIR__ . '/../views/admin/dashboard.php';
+	include __DIR__ . '/../views/admin/dashboard_films.php';
 }
 
 function filtrerFilmsParTitre($titre)
@@ -513,7 +513,7 @@ function filtrerFilmsParTitre($titre)
 		}
 	}
 	$isFiltre = true;
-	include __DIR__ . '/../views/admin/dashboard.php';
+	include __DIR__ . '/../views/admin/dashboard_films.php';
 }
 
 function filtrerFilmsParStatut($statut)
@@ -544,5 +544,5 @@ function filtrerFilmsParStatut($statut)
 		}
 	}
 	$isFiltre = true;
-	include __DIR__ . '/../views/admin/dashboard.php';
+	include __DIR__ . '/../views/admin/dashboard_films.php';
 }

@@ -43,8 +43,12 @@ switch ($action) {
 		RouteAuthentification();
 		break;
 
-	case 'dashboard':
-		DashboardAdmin();
+	case 'dashboard_films':
+		DashboardAdminFilms();
+		break;
+
+	case 'dashboard_users':
+		DashboardAdminUsers();
 		break;
 
 	case 'logout':
